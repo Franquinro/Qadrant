@@ -1,0 +1,12 @@
+CACHE MANIFEST
+# 2017.02.21: V2
+# 2019.01.05: V1
+
+index.html
+https://fonts.googleapis.com/css?family=Lato:400,700
+http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js
+https://fonts.gstatic.com/s/lato/v13/H2DMvhDLycM56KNuAtbJYA.woff2
+page.css
+calendar_off.js
+hammer.js
+hoy.png

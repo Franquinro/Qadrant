@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html manifest="/offline.manifest">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=9" >
+    <title>Qadrant</title>
+<!-- <meta name="viewport" content="width=device-width"/> -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="page.css" />
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="calendar_off.js"></script>
+    <script type="text/javascript" src="hammer.js"></script>
+  </head>
+  <body>
+  <div id="encabezao" class="encabezao">
+      <h1 id="titulo">Qadrant</h1>
+
+    <div class="date-selection">
+      <div id="turno">
+        
+      </div>
+
+      <div id="month">
+        Enero
+      </div>
+      
+      <div id="year"> 
+
+      </div>
+    </div>   
+  </div>
+
+    
+      <canvas id="calendar">
+        We're sorry, you don't have a browser that supports the &lt;canvas&gt; tag. :(
+      </canvas>
+      <footer id="footer">
+      <span id="textoTurnoDef">Turno preferido</span>
+      	<select id="turnoDef">
+		  <option value="0">Turno A</option>
+		  <option value="1">Turno B</option>
+		  <option value="2">Turno C</option>
+		  <option value="3">Turno D</option>
+		  <option value="4">Turno E</option>
+		  <option value="5">Turno F</option>
+		</select>
+      </footer>
+      <img src="hoy.png" id="hoyImg" style="display: none;">  
+      <!-- <div id="about"><p>&copy; <strong>Francisco Quintana</strong>. Alojado en <a href="http://www.ccooendesa.com">ccooendesa.com</a></p></div> -->
+  </body>
+</html>
