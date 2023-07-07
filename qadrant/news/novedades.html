@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Novedades e histórico de cambios</title>
+  <!-- Incluir Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Novedades e histórico de cambios</h1>
+    
+    <!-- Versión 1.2 -->
+    <div class="card">
+      <div class="card-header" id="heading1">
+        <h2 class="mb-0">
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+            Versión 1.2
+          </button>
+        </h2>
+      </div>
+      <div id="collapse1" class="collapse show" aria-labelledby="heading1">
+        <div class="card-body">
+          Aquí van los detalles de la versión 1.2...
+        </div>
+      </div>
+    </div>
+
+    <!-- Versión 1.1 -->
+    <div class="card">
+      <div class="card-header" id="heading2">
+        <h2 class="mb-0">
+          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+            Versión 1.1
+          </button>
+        </h2>
+      </div>
+      <div id="collapse2" class="collapse" aria-labelledby="heading2">
+        <div class="card-body">
+          Aquí van los detalles de la versión 1.1...
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Incluir jQuery y Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
