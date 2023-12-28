@@ -64,7 +64,9 @@
       }
 
       .card[data-color="blue"] .category {
-        color: #7a9e9f;
+        margin-bottom: 10px;
+        font-size: 1.5em;
+        color: #4d6a6a;
       }
 
       .card .category,
@@ -124,30 +126,44 @@
       .card[data-color="blue"] .description {
         color: #506568;
       }
+
+      .card[data-color="purple"] {
+        background: #baa9ba;
+      }
+
+      .card[data-color="purple"] .description {
+        color: #3a283d;
+      }
+
+      .card[data-color="purple"] .category {
+        color: #5a283d;
+      }
     </style>
   </head>
   <body>
     <div class="container text-center">
-      <div class="col-md-4 col-sm-6 content-card">
+      <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-12 content-card">
         <div class="card-big-shadow">
-          <div class="card card-just-text" data-background="color" data-color="blue" data-radius="none">
+          <div class="card card-just-text" data-background="color" data-color="purple" data-radius="normal">
             <div class="content">
-              <h6 class="category">Apoya</h6>
               <h4 class="title">Quadrant</h4>
-              <p class="description">He mantenido y mejorado Qadrant por 16 años, no solo con las actualizaciones anuales, sino adaptándola continuamente para cumplir con las políticas de Google Play y asegurar su disponibilidad en la tienda de aplicaciones. Esto me ha supuesto una cantidad importante de tiempo y esfuerzo.</p>
-              <p class="description">Si quieres invitarme a un café ☕, puedes hacerlo fácilmente a través de Bizum a mi número: <strong>677817527</strong></p>
-              <p class="description">Si lo haces, ayudarás a que siga sintiendo que mi esfuerzo es valorado y continuar trabajando en esta aplicación. </P>
-              Francisco Quintana
+              <p class="description">¿Te gusta o encuentras útil la aplicación?</p>
+              <p class="description">Si es así, y deseas mostrar tu apoyo, puedes invitarme a un café ☕ o a una cerveza 🍺 mediante Bizum al número ...</p>
+              <h4 class="category" style="
+    margin-bottom: 10px;
+    font-size: 1.5em;
+">677527817</h4>
+              <p class="description">Al hacerlo, estarás dando valor a mi esfuerzo y me motivarás a continuar con el desarrollo y mejora de la aplicación. </P>
+              <p style="
+                color: #546E7A;
+                text-align:  left !important;
+            ">
+                <br>Atentamente, <br>Francisco Quintana
+              </p>
             </div>
           </div>
         </div>
       </div>
-      <!-- Aquí puedes incluir tu código QR de Bizum si lo deseas -->
-      <!-- <img src="tu_codigo_qr_bizum.jpg" alt="Código QR Bizum" class="mt-3"> -->
     </div>
-    <!-- Incluir Bootstrap JS y dependencias -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.1.16/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>
 </html>
