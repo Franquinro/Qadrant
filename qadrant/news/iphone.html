@@ -54,11 +54,12 @@
     .card[data-background="color"] .content a {
       color: #FFFFFF;
 
-  
+
     }
 
     .card .title {
-      text-shadow: 2px 2px 4px #000000; /* X-offset, Y-offset, blur radius, color */
+      text-shadow: 2px 2px 4px #000000;
+      /* X-offset, Y-offset, blur radius, color */
 
     }
 
@@ -163,54 +164,47 @@
       text-align: left;
     }
   </style>
-  <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('a').forEach(function(link) {
-                link.addEventListener('click', function(event) {
-                    var url = this.href;
-
-                    if (deberiaAbrirEnNavegadorExterno(url)) {
-                        // Prevenir que el WebView maneje el enlace
-                        event.preventDefault();
-
-                        // Abrir el enlace en el navegador por defecto
-                        window.open(url, '_blank');
-                    }
-                });
-            });
+  <script>
+        function copiarAlPortapapeles() {
+        const texto = document.getElementById('textoParaCopiar').innerText;
+        navigator.clipboard.writeText(texto).then(function() {
+            console.log('Texto copiado al portapapeles');
+        })
+        .catch(function(error) {
+            console.error('Error al copiar el texto: ', error);
         });
-
-        function deberiaAbrirEnNavegadorExterno(url) {
-            // Implementa tu lógica aquí
-            // Por ejemplo, puedes verificar si el enlace es externo a tu dominio
-            return true; // Esto es solo un ejemplo, ajústalo a tus necesidades
-        }
-    </script>
+    }
+  </script>
 </head>
-  <body>
-    <div class="container text-center">
-      <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-12 content-card">
-        <div class="card-big-shadow">
-          <div class="card card-just-text" data-background="color" data-color="brown" data-radius="normal">
-            <div class="content">
-              <h4 class="title">¡Atención Usuarios de iPhone!</h4>
-              <p class="description"><br>¿Cansado de que tus compañeros con Android se jacten de su app de cuadrante? Tú y tus familiares pueden disfrutar de una <strong>versión especial de Qadrant</strong> adaptada para iPhone.</p>
-              <p class="description">Aunque es un poco más reducida (porque los usuarios de iPhone prefieren la simplicidad), te brinda todo lo necesario para organizar el 2024 con Qadrant.</p>
-              <h4 class="categor" style="
+
+<body>
+  <div class="container text-center">
+    <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-12 content-card">
+      <div class="card-big-shadow">
+        <div class="card card-just-text" data-background="color" data-color="brown" data-radius="normal">
+          <div class="content">
+            <h4 class="title">¡Atención Usuarios de iPhone!</h4>
+            <p class="description"><br>¿Cansado de que tus compañeros con Android se jacten de su app de cuadrante? Tú y tus familiares pueden disfrutar de una
+              <strong>versión especial de Qadrant</strong> adaptada para iPhone.</p>
+            <p class="description">Aunque es un poco más reducida (porque los usuarios de iPhone prefieren la
+              simplicidad), te brinda todo lo necesario para organizar el 2024 con Qadrant.</p>
+            <h4 class="categor" style="
     margin-bottom: 10px;
     font-size: 1.5em;
 "></h4>
-              <p class="description"><a class="btn btn-info" href="https://qadrant.netlify.app/" class="highlight">Versión web de Qadrant</a></P>
-              <p style="
+            <p class="description"><strong id="textoParaCopiar">https://qadrant.netlify.app</strong></p>
+            <p class="description"><a class="btn btn-info" onclick="copiarAlPortapapeles()">Copiar Enlace</a></P>
+            <p style="
                 color: #546E7A;
                 text-align:  center !important;
             ">
-                <br>Para el desarrollo de esta app no se ha maltratado a ningún smartphone. Todos los dispositivos son increíbles a su manera. ¡Disfruta Qadrant!
-              </p>
-            </div>
+              <br>Para el desarrollo de esta app no se ha maltratado a ningún smartphone. Todos los dispositivos son increíbles a su manera. ¡Disfruta Qadrant!
+            </p>
           </div>
         </div>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
