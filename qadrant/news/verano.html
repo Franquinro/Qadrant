@@ -1,12 +1,15 @@
-<!DOCTYPE html>
-<html lang="es">
+<!doctype html>
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Incluir Bootstrap CSS -->
-  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    
-    <title>Cambio a Horario de Invierno</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>Cambio a Horario de Verano</title>
     <style>
         body {
             display: flex;
@@ -16,40 +19,44 @@
             background-color: #f4f4f4;
             font-family: Arial, sans-serif;
             margin: 0;
-            overflow: hidden;
         }
         .card {
             background: white;
-            padding: 15px;
+            padding: 20px;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             text-align: center;
-            max-width: 90%;
-            width: 350px;
+            max-width: 400px;
         }
         .card h1 {
             color: #d32f2f;
-            font-size: 22px;
         }
         .card p {
-            font-size: 16px;
+            font-size: 18px;
             color: #333;
-            margin: 10px 0;
         }
         .clock {
-            font-size: 40px;
+            font-size: 50px;
             font-weight: bold;
             color: #d32f2f;
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
+    <div class="container py-2">
         <div class="card">
             <h1>📢 Cambio a Horario de Verano</h1>
-            <p>En la madrugada de<br></p><h3>domingo 30 de marzo</h3><p></p>
-            <p>a las<br><span class="clock">2:00</span><br>serán las<br><span class="clock">3:00</span></p>
-            <p>¡No olvides adelantar tu reloj! ⏰</p>
+        <p>En la madrugada de<br></p><h3>domingo 30 de marzo</h3><p></p>
+        <p>a las<br><span class="clock">2:00</span><br>serán las<br><span class="clock">3:00</span></p>
+        <p>¡No olvides adelantar tu reloj! ⏰</p>
         </div>
-    </div>
-</body></html>
+     </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
