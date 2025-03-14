@@ -1,62 +1,84 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <!-- Required meta tags -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cambio a Horario de Verano</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <title>Cambio a Horario de Verano</title>
+    <!-- Incluir Bootstrap CSS -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <!-- Estilos adicionales -->
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-            font-family: Arial, sans-serif;
-            margin: 0;
-        }
-        .card {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            max-width: 400px;
-        }
-        .card h1 {
-            color: #d32f2f;
-        }
-        .card p {
-            font-size: 18px;
-            color: #333;
-        }
-        .clock {
-            font-size: 50px;
-            font-weight: bold;
-            color: #d32f2f;
-        }
+      body {
+        margin-top: 10px;
+      }
+
+      .card-big-shadow {
+        max-width: 520px;
+        position: relative;
+      }
+
+      .coloured-cards .card {
+        margin-top: 10px;
+      }
+
+      .card[data-radius="none"] {
+        border-radius: 0px;
+      }
+
+      .card {
+        border-radius: 8px;
+        box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);
+        background-color: #FFFFFF;
+        color: #252422;
+        margin-bottom: 20px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .card[data-color="blue"] {
+        background: #b8d8d8;
+      }
+
+      .card[data-color="blue"] .description {
+        color: #506568;
+      }
+
+      .card.card-just-text .content {
+        padding: 10px;
+        text-align: center;
+      }
+
+      .card .content {
+        padding: 10px 10px 5px 10px;
+      }
+
+      .card .description {
+        font-size: 16px;
+        color: #66615b;
+      }
+
+      h4,
+      .h4 {
+        font-size: 1.5em;
+        font-weight: 600;
+        line-height: 1.2em;
+      }
     </style>
-</head>
-
-<body>
-    <div class="container py-2">
-        <div class="card">
-            <h1>📢 Cambio a Horario de Verano</h1>
-        <p>En la madrugada de<br></p><h3>domingo 30 de marzo</h3><p></p>
-        <p>a las<br><span class="clock">2:00</span><br>serán las<br><span class="clock">3:00</span></p>
-        <p>¡No olvides adelantar tu reloj! ⏰</p>
+  </head>
+  <body>
+    <div class="container text-center">
+      <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-12 content-card">
+        <div class="card-big-shadow">
+          <div class="card card-just-text" data-background="color" data-color="blue" data-radius="normal">
+            <div class="content">
+              <h4 class="title">📢 Cambio a Horario de Verano</h4>
+              <p class="description">En la madrugada del <strong>domingo 30 de marzo</strong>,</p>
+              <p class="description">a las <strong>2:00</strong> serán las <strong>3:00</strong>.</p>
+              <p class="description">¡No olvides adelantar tu reloj! ⏰</p>
+            </div>
+          </div>
         </div>
-     </div>
-
-    <!-- Optional JavaScript; choose one of the two! -->
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-</body>
-
+      </div>
+    </div>
+  </body>
 </html>
