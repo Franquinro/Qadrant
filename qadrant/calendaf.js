@@ -644,7 +644,7 @@ window.CanvasCalendar = {
 
         // Actualizar Turno Visual (HEADER - GRANDE)
         var displayDiv = document.getElementById("turno-display");
-        var statusDiv = document.getElementById("turno-status"); // Nuevo div creado en HTML
+        //var statusDiv = document.getElementById("turno-status"); // Nuevo div creado en HTML
         
         displayDiv.innerText = textoTurno[turnoVisual];
         document.getElementById("titulo").innerText = "Qadrant " + thisYear;
@@ -656,14 +656,14 @@ window.CanvasCalendar = {
             displayDiv.classList.add('text-warning'); // Color naranja/amarillo oscuro
             
             // Aviso debajo
-            statusDiv.innerHTML = '<span class="badge bg-warning text-dark">Vista Temporal</span>';
+            // statusDiv.innerHTML = '<span class="badge bg-warning text-dark">Vista Temporal</span>';
         } else {
             // Si es mi turno
             displayDiv.classList.remove('text-warning');
             displayDiv.classList.add('text-danger');
             
             // Limpiar aviso
-            statusDiv.innerHTML = '';
+            // statusDiv.innerHTML = '';
         }
         
         // Actualizar Turno Defecto (FOOTER PEQUEÑO)
