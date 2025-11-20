@@ -666,7 +666,7 @@ window.CanvasCalendar = {
             statusDiv.innerHTML = '';
         }
         
-        // Actualizar Turno Defecto (FOOTER - PEQUEÑO)
+        // Actualizar Turno Defecto (FOOTER PEQUEÑO)
         document.getElementById("turnoDef").value = turnoDefecto; 
 
         this.drawCalendarDOM();
