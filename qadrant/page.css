@@ -143,3 +143,44 @@ body {
     color: white;
     border-color: #dc3545;
 }
+/* ... Estilos anteriores ... */
+
+/* MEJORA: Estilos para selectores interactivos en cabecera */
+.form-select-title {
+    appearance: none; /* Quita estilo nativo */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: transparent;
+    border: none;
+    /* Subrayado punteado para indicar interacción */
+    border-bottom: 2px dotted #adb5bd; 
+    padding: 0 20px 0 5px; /* Espacio a la derecha para la flecha */
+    margin: 0 5px;
+    font-weight: 700;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #343a40;
+    /* Flecha personalizada */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 12px 12px;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.form-select-title:hover {
+    color: #0d6efd; /* Color primario al pasar ratón */
+    border-bottom-color: #0d6efd;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%230d6efd' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+}
+
+.form-select-title:focus {
+    outline: none;
+}
+
+/* Ajuste para el año que suele ser gris */
+#yearSelect {
+    color: #6c757d;
+    border-bottom-color: #6c757d;
+     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%236c757d' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+}
