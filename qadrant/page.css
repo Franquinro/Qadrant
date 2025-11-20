@@ -104,3 +104,42 @@ body {
     from { opacity: 0; transform: scale(0.95); }
     to { opacity: 1; transform: scale(1); }
 }
+
+/* Estilos para que los selects parezcan títulos de texto */
+.form-select-title {
+    appearance: none; /* Quita estilo nativo */
+    background-color: transparent;
+    border: none;
+    padding: 0 5px;
+    margin: 0;
+    font-weight: 500;
+    font-size: 1.5rem; /* Tamaño h3 aprox */
+    cursor: pointer;
+    text-align: center;
+    text-align-last: center;
+}
+
+.form-select-title:focus {
+    outline: none;
+    text-decoration: underline;
+}
+
+/* Ajuste visual para móviles para alinear texto */
+.form-select-title option {
+    font-size: 1rem;
+    color: black;
+}
+
+/* Estilo cuando el candado está activo */
+.locked-mode select#turnoDef {
+    background-color: #e9ecef;
+    opacity: 0.7;
+    pointer-events: none; /* Evita clics */
+}
+
+/* El botón del candado cuando está activo */
+.btn-check:checked + .btn-outline-secondary {
+    background-color: #dc3545; /* Rojo para indicar bloqueo */
+    color: white;
+    border-color: #dc3545;
+}

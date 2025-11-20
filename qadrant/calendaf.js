@@ -2,12 +2,14 @@ document.addEventListener("DOMContentLoaded", function() {
     CanvasCalendar.initialize();
 });
 
-// Variables globales simplificadas
-var thisMonth, thisYear;
+// --- VARIABLES GLOBALES ---
+var thisMonth;
+var thisYear;
 var selectedDate = new Date();
 var turno = 0;
+var isLocked = false; // Estado del candado
 
-// RANGO DE AÑOS (Ajusta según necesites)
+// Configuración de años
 var primerAnio = 2007;
 var ultimoAnyo = 2025;
 
@@ -557,129 +559,179 @@ var festivos = ["20110101", "20110106", "20110421", "20110422", "20110530", "201
 
 
 window.CanvasCalendar = {
+
     initialize: function() {
+        // 1. Inicializar fechas al día de hoy
+        var now = new Date();
+        thisMonth = now.getMonth() + 1;
+        thisYear = now.getFullYear();
+        selectedDate = new Date(thisYear, thisMonth - 1, 1);
+
+        // 2. Rellenar dinámicamente el selector de Años
+        var yearSelect = document.getElementById('yearSelect');
+        if(yearSelect) {
+            yearSelect.innerHTML = ""; // Limpiar por si acaso
+            for (var y = primerAnio; y <= ultimoAnyo; y++) {
+                var opt = document.createElement('option');
+                opt.value = y;
+                opt.innerHTML = y;
+                yearSelect.appendChild(opt);
+            }
+        }
+
+        // 3. Configurar Hammer.js (Gestos táctiles)
         var myElement = document.getElementById('calendar-container');
-        
-        // Inicializar Hammer.js para gestos táctiles
         var mc = new Hammer(myElement);
         mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
 
         mc.on("swipeleft swiperight swipeup swipedown", function(ev) {
+            // LOGICA DEL CANDADO: Si está bloqueado, ignorar gestos verticales (cambio de turno)
+            if (isLocked && (ev.type == "swipeup" || ev.type == "swipedown")) {
+                return; 
+            }
+
             if (ev.type == "swipeleft") mesMas();
             if (ev.type == "swiperight") mesMenos();
             if (ev.type == "swipedown") turnoMenos();
             if (ev.type == "swipeup") turnoMas();
         });
 
-        // Inicializar variables de fecha
-        selectedDate.setDate(1); // Siempre trabajamos con el día 1 del mes para calcular
-        thisMonth = selectedDate.getMonth() + 1;
-        thisYear = selectedDate.getFullYear();
+        // 4. Listeners para los Selectores de Cabecera (Mes y Año)
+        document.getElementById('monthSelect').addEventListener('change', function() {
+            thisMonth = parseInt(this.value);
+            // Actualizamos la fecha base y refrescamos
+            selectedDate = new Date(thisYear, thisMonth - 1, 1);
+            CanvasCalendar.refreshCalendar();
+        });
 
-        // Cargar cookie y listeners
-        checkCookie();
+        document.getElementById('yearSelect').addEventListener('change', function() {
+            thisYear = parseInt(this.value);
+            selectedDate = new Date(thisYear, thisMonth - 1, 1);
+            CanvasCalendar.refreshCalendar();
+        });
+
+        // 5. Listener para el Selector de Turno (Footer)
         var elTurno = document.getElementById('turnoDef');
-        elTurno.value = turno.toString();
-        
         elTurno.addEventListener('change', function() {
             turno = parseInt(this.value);
             setCookie('turnoDef', turno.toString(), 365);
             CanvasCalendar.refreshCalendar();
         });
 
+        // 6. Listener para el Candado (Checkbox)
+        var lockToggle = document.getElementById('lockToggle');
+        lockToggle.addEventListener('change', function() {
+            toggleLock(this.checked);
+        });
+
+        // 7. Carga inicial de datos guardados (Cookies)
+        checkCookie();      // Carga el turno preferido
+        checkLockCookie();  // Carga si estaba bloqueado
+
+        // Sincronizar UI inicial
+        elTurno.value = turno.toString();
+
+        // Dibujar calendario
         this.refreshCalendar();
     },
 
     refreshCalendar: function() {
         var textoTurno = ["Turno A", "Turno B", "Turno C", "Turno D", "Turno E", "Turno F"];
-        var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        
+        // Actualizar valores de los Selects (por si cambiaron vía Swipe o botones)
+        document.getElementById('monthSelect').value = thisMonth;
+        document.getElementById('yearSelect').value = thisYear;
 
-        // Actualizar cabecera
-        document.getElementById("month").innerText = meses[thisMonth - 1];
-        document.getElementById("turno").innerText = textoTurno[turno];
-        document.getElementById("year").innerText = thisYear;
+        // Actualizar textos informativos
+        document.getElementById("turno-display").innerText = textoTurno[turno];
         document.getElementById("titulo").innerText = "Qadrant " + thisYear;
+        
+        // Sincronizar el select del footer con la variable actual
+        document.getElementById("turnoDef").value = turno; 
 
         this.drawCalendarDOM();
     },
 
     drawCalendarDOM: function() {
         var grid = document.getElementById('calendar-grid');
-        grid.innerHTML = ""; // Limpiar calendario previo
+        
+        // Reiniciar animación CSS
         grid.classList.remove('fade-in');
-        void grid.offsetWidth; // Trigger reflow para reiniciar animación
+        void grid.offsetWidth; // Trigger reflow
         grid.classList.add('fade-in');
+        
+        grid.innerHTML = ""; // Limpiar celdas anteriores
 
-        // Calcular días
+        // Cálculos de días del mes
         var prevMonthLastDate = getLastDayOfMonth(thisMonth - 1, thisYear);
         var thisMonthLastDate = getLastDayOfMonth(thisMonth, thisYear);
         
-        // Calcular en qué día de la semana cae el día 1 (Lunes=0, Domingo=6)
         var firstDayObj = new Date(thisYear, thisMonth - 1, 1);
         var thisMonthFirstDay = firstDayObj.getDay() - 1; 
-        if (thisMonthFirstDay < 0) thisMonthFirstDay = 6; // Ajuste para que Domingo sea el último
+        if (thisMonthFirstDay < 0) thisMonthFirstDay = 6; // Ajuste lunes-domingo
 
         var monthDay = 0;
         var dateOffset = thisMonthFirstDay;
         
-        // Crear las 42 celdas (6 semanas x 7 días) típicas de un calendario
-        for (var j = 0; j < 6; j++) { // Semanas
-            for (var i = 0; i < 7; i++) { // Días
+        // Bucle para generar las 6 semanas (filas) x 7 días (columnas)
+        for (var j = 0; j < 6; j++) { 
+            for (var i = 0; i < 7; i++) { 
                 
                 var cell = document.createElement('div');
                 cell.className = 'day-cell';
+                
                 var dayNumber = 0;
                 var isCurrentMonth = false;
-                var isFestivo = false;
 
-                // Lógica para determinar el número del día y si es mes actual
+                // Lógica para determinar el número de día y el mes
                 if (j === 0 && i < thisMonthFirstDay) {
-                    // Días del mes anterior
+                    // Mes Anterior
                     dayNumber = prevMonthLastDate - (dateOffset - i) + 1;
                     cell.classList.add('other-month');
-                    // Nota: En tu lógica original no pintas turnos en mes anterior, mantenemos eso.
                 } else if (monthDay < thisMonthLastDate) {
-                    // Días del mes actual
+                    // Mes Actual
                     monthDay++;
                     dayNumber = monthDay;
                     isCurrentMonth = true;
                 } else {
-                    // Días del mes siguiente
+                    // Mes Siguiente
                     monthDay++;
                     dayNumber = monthDay - thisMonthLastDate;
                     cell.classList.add('other-month');
                 }
 
-                // Lógica de Turnos (Solo si es mes actual y tenemos datos)
+                // --- LÓGICA DE PINTADO DE TURNOS ---
                 if (isCurrentMonth && (thisYear - primerAnio) >= 0 && cuadrante[thisYear - primerAnio]) {
                     try {
-                        // Tu lógica original de acceso al array
-                        var turnoStr = cuadrante[(thisYear - primerAnio)][thisMonth - 1][(dayNumber-1)];
+                        // CORRECCIÓN IMPORTANTE: dayNumber - 1 para ajustar índice de array
+                        var turnoStr = cuadrante[(thisYear - primerAnio)][thisMonth - 1][(dayNumber - 1)];
+                        
                         if(turnoStr === undefined) turnoStr = "999999";
                         turnoStr = turnoStr.toString();
                         
                         var turnoInt = parseInt(turnoStr.substring(turno, turno + 1));
                         
-                        // Aplicar clase CSS según el turno
+                        // Asignar clases de color según el turno (1, 2, 3, 4)
                         if (turnoInt >= 1 && turnoInt <= 4) {
                             cell.classList.add('shift-type-' + turnoInt);
                         }
                     } catch (e) {
-                        console.error("Error data cuadrante", e);
+                        // Silencioso en caso de error de datos
                     }
                 }
 
-                // Lógica de Festivos
+                // --- LÓGICA DE FESTIVOS Y HOY ---
                 if (isCurrentMonth) {
                     var dateString = thisYear.toString() + 
                                      ((thisMonth < 10) ? "0" + thisMonth : thisMonth) + 
                                      ((dayNumber < 10) ? "0" + dayNumber : dayNumber);
                     
-                    if (i === 6 || festivos.includes(dateString)) { // Domingos (i==6) o array festivos
+                    // Si es Domingo (i==6) o está en la lista de festivos
+                    if (i === 6 || festivos.includes(dateString)) { 
                         cell.classList.add('is-holiday');
                     }
 
-                    // Lógica de "Hoy"
+                    // Marcar el día de hoy
                     var today = new Date();
                     if (dayNumber === today.getDate() && 
                         thisMonth === (today.getMonth() + 1) && 
@@ -695,11 +747,85 @@ window.CanvasCalendar = {
     }
 };
 
-// --- Funciones Auxiliares (Mantenidas y limpiadas) ---
+// --- FUNCIONES DE NAVEGACIÓN GLOBAL ---
+
+window.mesMas = function() {
+    if (selectedDate.getMonth() == 11 && selectedDate.getFullYear() == ultimoAnyo) return;
+    if (selectedDate.getFullYear() > ultimoAnyo) return;
+    
+    selectedDate.setMonth(selectedDate.getMonth() + 1);
+    thisMonth = selectedDate.getMonth() + 1;
+    thisYear = selectedDate.getFullYear();
+    CanvasCalendar.refreshCalendar();
+}
+
+window.mesMenos = function() {
+    if (selectedDate.getMonth() == 0 && selectedDate.getFullYear() == primerAnio) return;
+    
+    selectedDate.setMonth(selectedDate.getMonth() - 1);
+    thisMonth = selectedDate.getMonth() + 1;
+    thisYear = selectedDate.getFullYear();
+    CanvasCalendar.refreshCalendar();
+}
+
+window.turnoMas = function() {
+    if(isLocked) return; // Bloqueo activado
+    turno++;
+    if (turno == 6) turno = 0;
+    CanvasCalendar.refreshCalendar();
+}
+
+window.turnoMenos = function() {
+    if(isLocked) return; // Bloqueo activado
+    turno--;
+    if (turno < 0) turno = 5;
+    CanvasCalendar.refreshCalendar();
+}
+
+
+// --- FUNCIONES DE UTILIDAD Y COOKIES ---
 
 function getLastDayOfMonth(month, year) {
-    // Ajuste js nativo: día 0 del mes siguiente devuelve el último del anterior
+    // Truco JS: día 0 del mes siguiente es el último del actual
     return new Date(year, month, 0).getDate();
+}
+
+// Lógica del Candado
+function toggleLock(locked) {
+    isLocked = locked;
+    var turnoSelect = document.getElementById('turnoDef');
+    var iconUnlock = document.getElementById('iconUnlock');
+    var iconLock = document.getElementById('iconLock');
+
+    if (isLocked) {
+        // Estado Bloqueado
+        turnoSelect.disabled = true;
+        document.body.classList.add('locked-mode');
+        if(iconUnlock) iconUnlock.style.display = 'none';
+        if(iconLock) iconLock.style.display = 'inline';
+    } else {
+        // Estado Desbloqueado
+        turnoSelect.disabled = false;
+        document.body.classList.remove('locked-mode');
+        if(iconUnlock) iconUnlock.style.display = 'inline';
+        if(iconLock) iconLock.style.display = 'none';
+    }
+    
+    // Guardar estado
+    setCookie("isLocked", isLocked.toString(), 365);
+}
+
+function checkLockCookie() {
+    var lockedCookie = getCookie("isLocked");
+    var lockToggle = document.getElementById('lockToggle');
+    
+    if (lockedCookie === "true") {
+        if(lockToggle) lockToggle.checked = true;
+        toggleLock(true);
+    } else {
+        if(lockToggle) lockToggle.checked = false;
+        toggleLock(false);
+    }
 }
 
 function setCookie(cname, cvalue, exdays) {
@@ -714,7 +840,9 @@ function getCookie(cname) {
     var ca = document.cookie.split(';');
     for (var i = 0; i < ca.length; i++) {
         var c = ca[i].trim();
-        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
     }
     return "";
 }
@@ -723,35 +851,8 @@ function checkCookie() {
     var user = getCookie("turnoDef");
     if (user != "") {
         turno = parseInt(user);
+    } else {
+        // Si no existe cookie, guardamos el default
+        setCookie("turnoDef", turno.toString(), 365);
     }
-}
-
-// Funciones de navegación expuestas globalmente para los botones HTML
-window.mesMas = function() {
-    if (selectedDate.getMonth() == 11 && selectedDate.getFullYear() == ultimoAnyo) return;
-    if (selectedDate.getFullYear() > ultimoAnyo) return;
-    selectedDate.setMonth(selectedDate.getMonth() + 1);
-    thisMonth = selectedDate.getMonth() + 1;
-    thisYear = selectedDate.getFullYear();
-    CanvasCalendar.refreshCalendar();
-}
-
-window.mesMenos = function() {
-    if (selectedDate.getMonth() == 0 && selectedDate.getFullYear() == primerAnio) return;
-    selectedDate.setMonth(selectedDate.getMonth() - 1);
-    thisMonth = selectedDate.getMonth() + 1;
-    thisYear = selectedDate.getFullYear();
-    CanvasCalendar.refreshCalendar();
-}
-
-window.turnoMas = function() {
-    turno++;
-    if (turno == 6) turno = 0;
-    CanvasCalendar.refreshCalendar();
-}
-
-window.turnoMenos = function() {
-    turno--;
-    if (turno < 0) turno = 5;
-    CanvasCalendar.refreshCalendar();
 }

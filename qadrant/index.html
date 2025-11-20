@@ -26,41 +26,75 @@
                 <!-- Cabecera -->
                 <header class="text-center mb-3">
                     <h1 id="titulo" class="display-5 fw-bold text-primary">Qadrant</h1>
-                    <div class="d-flex justify-content-between align-items-center mt-3 date-controls">
+                    
+                    <!-- Turno actual visible en cabecera -->
+                    <div id="turno-display" class="text-danger fw-bold small mb-1">Turno A</div>
+
+                    <div class="d-flex justify-content-center align-items-center gap-2 date-controls">
                         <button class="btn btn-outline-secondary btn-sm" onclick="mesMenos()">&lt;</button>
-                        <div class="date-display">
-                            <span id="turno" class="d-block text-danger fw-bold small">Turno A</span>
-                            <span id="month" class="h3 text-dark">Enero</span>
-                            <span id="year" class="h3 text-muted">2024</span>
+                        
+                        <!-- Selectores disfrazados de texto -->
+                        <div class="d-flex align-items-baseline gap-1">
+                            <select id="monthSelect" class="form-select-title text-dark">
+                                <option value="1">Enero</option>
+                                <option value="2">Febrero</option>
+                                <option value="3">Marzo</option>
+                                <option value="4">Abril</option>
+                                <option value="5">Mayo</option>
+                                <option value="6">Junio</option>
+                                <option value="7">Julio</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Septiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
+                            </select>
+                            <select id="yearSelect" class="form-select-title text-muted">
+                                <!-- Se llena con JS -->
+                            </select>
                         </div>
+
                         <button class="btn btn-outline-secondary btn-sm" onclick="mesMas()">&gt;</button>
                     </div>
                 </header>
 
                 <!-- Calendario (GRID CSS) -->
                 <div id="calendar-container" class="card shadow-sm">
-                    <!-- Días de la semana -->
                     <div class="weekdays-grid">
                         <div>L</div><div>M</div><div>X</div><div>J</div><div>V</div><div>S</div><div>D</div>
                     </div>
-                    <!-- Días del mes -->
-                    <div id="calendar-grid" class="days-grid">
-                        <!-- Se llena con JS -->
-                    </div>
+                    <div id="calendar-grid" class="days-grid"></div>
                 </div>
 
                 <!-- Footer / Controles -->
                 <footer class="mt-4 p-3 bg-light rounded shadow-sm">
-                    <div class="mb-2 d-flex justify-content-between align-items-center">
-                        <label for="turnoDef" class="form-label mb-0 fw-bold text-secondary">Selecciona tu Turno:</label>
-                        <select id="turnoDef" class="form-select w-auto">
-                            <option value="0">Turno A</option>
-                            <option value="1">Turno B</option>
-                            <option value="2">Turno C</option>
-                            <option value="3">Turno D</option>
-                            <option value="4">Turno E</option>
-                            <option value="5">Turno F</option>
-                        </select>
+                    <div class="row align-items-center g-2">
+                        <div class="col-auto">
+                            <label for="turnoDef" class="form-label mb-0 fw-bold text-secondary">Turno:</label>
+                        </div>
+                        <div class="col">
+                            <select id="turnoDef" class="form-select">
+                                <option value="0">Turno A</option>
+                                <option value="1">Turno B</option>
+                                <option value="2">Turno C</option>
+                                <option value="3">Turno D</option>
+                                <option value="4">Turno E</option>
+                                <option value="5">Turno F</option>
+                            </select>
+                        </div>
+                        <!-- Botón Candado -->
+                        <div class="col-auto">
+                            <input type="checkbox" class="btn-check" id="lockToggle" autocomplete="off">
+                            <label class="btn btn-outline-secondary" for="lockToggle" id="lockLabel">
+                                <!-- Icono de candado abierto por defecto (Bootstrap Icons SVG) -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-unlock-fill" viewBox="0 0 16 16" id="iconUnlock">
+                                    <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2z"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16" id="iconLock" style="display:none;">
+                                    <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                                </svg>
+                            </label>
+                        </div>
                     </div>
                     <div id="about" class="text-center mt-3 text-muted small">
                         <p>&copy; Francisco Quintana.</p>
