@@ -642,23 +642,31 @@ window.CanvasCalendar = {
         document.getElementById('monthSelect').value = thisMonth;
         document.getElementById('yearSelect').value = thisYear;
 
-        // Cabecera muestra el TURNO VISUAL (que puede ser diferente al del footer)
-        var tituloTurno = document.getElementById("turno-display");
-        tituloTurno.innerText = textoTurno[turnoVisual];
+        // Actualizar Turno Visual (HEADER - GRANDE)
+        var displayDiv = document.getElementById("turno-display");
+        var statusDiv = document.getElementById("turno-status"); // Nuevo div creado en HTML
         
-        // Si estamos viendo un turno diferente al defecto, lo pintamos de otro color para avisar
-        if (turnoVisual !== turnoDefecto) {
-            tituloTurno.classList.remove('text-danger');
-            tituloTurno.classList.add('text-warning'); // Naranja si no es el mío
-            tituloTurno.innerText += " (Vista temporal)";
-        } else {
-            tituloTurno.classList.remove('text-warning');
-            tituloTurno.classList.add('text-danger');
-        }
-
+        displayDiv.innerText = textoTurno[turnoVisual];
         document.getElementById("titulo").innerText = "Qadrant " + thisYear;
         
-        // El footer SIEMPRE muestra el TURNO POR DEFECTO
+        // Lógica visual de "Turno Ajeno"
+        if (turnoVisual !== turnoDefecto) {
+            // Si estoy viendo otro turno
+            displayDiv.classList.remove('text-danger');
+            displayDiv.classList.add('text-warning'); // Color naranja/amarillo oscuro
+            
+            // Aviso debajo
+            statusDiv.innerHTML = '<span class="badge bg-warning text-dark">Vista Temporal</span>';
+        } else {
+            // Si es mi turno
+            displayDiv.classList.remove('text-warning');
+            displayDiv.classList.add('text-danger');
+            
+            // Limpiar aviso
+            statusDiv.innerHTML = '';
+        }
+        
+        // Actualizar Turno Defecto (FOOTER - PEQUEÑO)
         document.getElementById("turnoDef").value = turnoDefecto; 
 
         this.drawCalendarDOM();

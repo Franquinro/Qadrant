@@ -1,19 +1,22 @@
 :root {
     --bg-body: #f8f9fa;
-    --shift-1: #42a5f5; /* Turno Mañana? */
-    --shift-2: #66bb6a; /* Turno Tarde? */
-    --shift-3: #ffee58; /* Turno Noche? */
-    --shift-4: #ab47bc; /* Otro */
+    /* Colores de Turnos */
+    --shift-1: #2196f3; /* Azul */
+    --shift-2: #4caf50; /* Verde */
+    --shift-3: #ffeb3b; /* Amarillo */
+    --shift-4: #9c27b0; /* Morado */
     --shift-default: #ffffff;
-    --holiday-color: #ef5350;
+    
+    --holiday-color: #d32f2f;
     --today-border: #ff9800;
-    --text-dark: #343a40;
+    --text-dark: #212529;
 }
 
 body {
     background-color: var(--bg-body);
     font-family: 'Roboto', sans-serif;
-    -webkit-tap-highlight-color: transparent; /* Elimina el flash azul en móviles */
+    -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden; /* Evita scroll horizontal accidental */
 }
 
 .main-container {
@@ -23,164 +26,133 @@ body {
     justify-content: center;
 }
 
-/* Estilos de la rejilla del calendario */
+/* --- ESTILOS DE SELECTORES COMO TÍTULOS --- */
+.form-select-title {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px dotted #adb5bd; /* Subrayado para indicar interacción */
+    padding: 0 18px 0 4px; /* Espacio derecha para flecha */
+    margin: 0 4px;
+    font-weight: 700;
+    font-size: 1.8rem; /* Grande, como pediste */
+    line-height: 1.2;
+    cursor: pointer;
+    color: #212529;
+    
+    /* Flecha SVG incrustada */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 10px 10px;
+    transition: all 0.2s ease;
+}
+
+.form-select-title:hover, .form-select-title:focus {
+    color: #0d6efd;
+    border-bottom-color: #0d6efd;
+    outline: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%230d6efd' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+}
+
+/* Ajuste específico para que las opciones del select sean legibles en móvil */
+.form-select-title option {
+    font-size: 1rem;
+    color: #000;
+    background: #fff;
+}
+
+/* --- CALENDARIO GRID --- */
 .weekdays-grid, .days-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr); /* 7 columnas iguales */
-    gap: 2px;
-    background-color: #e9ecef; /* Color de las líneas de separación */
-    border: 1px solid #dee2e6;
+    grid-template-columns: repeat(7, 1fr);
 }
 
 .weekdays-grid div {
-    background: #fff;
     text-align: center;
-    font-weight: bold;
+    font-weight: 600;
     padding: 10px 0;
     color: #6c757d;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
 }
 
 .days-grid {
-    background-color: #dee2e6; 
-    border-top: none;
+    background-color: #dee2e6; /* Color de las líneas del grid */
+    gap: 1px; /* Grosor de la línea */
+    border: 1px solid #dee2e6;
 }
 
 .day-cell {
     background-color: var(--shift-default);
-    aspect-ratio: 1 / 1.2; /* Mantiene las celdas casi cuadradas pero un poco altas */
+    aspect-ratio: 1 / 1.1; /* Cuadrado ligeramente alto */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     position: relative;
-    font-size: 1.2rem;
-    font-weight: 700;
+    font-size: 1.25rem;
+    font-weight: 500;
     color: var(--text-dark);
-    transition: background-color 0.2s;
-    cursor: pointer;
+    user-select: none; /* Evita selección de texto al hacer gestos */
 }
 
 /* Días de otros meses */
 .day-cell.other-month {
     background-color: #f8f9fa;
-    color: #adb5bd;
-    opacity: 0.6;
+    color: #ced4da;
 }
 
-/* Estilos para los turnos (Asignados por JS) */
-.shift-type-1 { background-color: var(--shift-1); color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
-.shift-type-2 { background-color: var(--shift-2); color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
-.shift-type-3 { background-color: var(--shift-3); color: #333; }
-.shift-type-4 { background-color: var(--shift-4); color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+/* --- TIPOS DE TURNO --- */
+.shift-type-1 { background-color: var(--shift-1); color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.2); font-weight: 700;}
+.shift-type-2 { background-color: var(--shift-2); color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.2); font-weight: 700;}
+.shift-type-3 { background-color: var(--shift-3); color: #212529; font-weight: 700;}
+.shift-type-4 { background-color: var(--shift-4); color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.2); font-weight: 700;}
 
-/* Festivos */
+/* --- FESTIVOS Y HOY --- */
 .is-holiday {
     color: var(--holiday-color);
+    font-weight: 700;
 }
 
-/* Día de hoy */
 .is-today {
-    border: 3px solid var(--today-border);
-    z-index: 2; /* Para que el borde quede por encima */
-    border-radius: 4px;
+    z-index: 2;
+    box-shadow: inset 0 0 0 3px var(--today-border);
 }
 
 .is-today::after {
     content: 'HOY';
     position: absolute;
-    bottom: 2px;
+    bottom: 4px;
     font-size: 0.6rem;
     color: var(--today-border);
-    font-weight: bold;
+    font-weight: 800;
+    line-height: 1;
 }
 
-/* Animaciones */
+/* --- MODO BLOQUEADO (CANDADO) --- */
+.locked-mode select#turnoDef {
+    background-color: #e9ecef;
+    color: #adb5bd;
+    pointer-events: none;
+    border-color: #dee2e6;
+}
+
+/* Estilo botón candado activo */
+.btn-check:checked + .btn-outline-secondary {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+/* Animación suave al cambiar mes/año */
 .fade-in {
-    animation: fadeIn 0.3s ease-in;
+    animation: fadeIn 0.25s ease-out;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-/* Estilos para que los selects parezcan títulos de texto */
-.form-select-title {
-    appearance: none; /* Quita estilo nativo */
-    background-color: transparent;
-    border: none;
-    padding: 0 5px;
-    margin: 0;
-    font-weight: 500;
-    font-size: 1.5rem; /* Tamaño h3 aprox */
-    cursor: pointer;
-    text-align: center;
-    text-align-last: center;
-}
-
-.form-select-title:focus {
-    outline: none;
-    text-decoration: underline;
-}
-
-/* Ajuste visual para móviles para alinear texto */
-.form-select-title option {
-    font-size: 1rem;
-    color: black;
-}
-
-/* Estilo cuando el candado está activo */
-.locked-mode select#turnoDef {
-    background-color: #e9ecef;
-    opacity: 0.7;
-    pointer-events: none; /* Evita clics */
-}
-
-/* El botón del candado cuando está activo */
-.btn-check:checked + .btn-outline-secondary {
-    background-color: #dc3545; /* Rojo para indicar bloqueo */
-    color: white;
-    border-color: #dc3545;
-}
-/* ... Estilos anteriores ... */
-
-/* MEJORA: Estilos para selectores interactivos en cabecera */
-.form-select-title {
-    appearance: none; /* Quita estilo nativo */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-color: transparent;
-    border: none;
-    /* Subrayado punteado para indicar interacción */
-    border-bottom: 2px dotted #adb5bd; 
-    padding: 0 20px 0 5px; /* Espacio a la derecha para la flecha */
-    margin: 0 5px;
-    font-weight: 700;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #343a40;
-    /* Flecha personalizada */
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right center;
-    background-size: 12px 12px;
-    transition: border-color 0.2s, color 0.2s;
-}
-
-.form-select-title:hover {
-    color: #0d6efd; /* Color primario al pasar ratón */
-    border-bottom-color: #0d6efd;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%230d6efd' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-}
-
-.form-select-title:focus {
-    outline: none;
-}
-
-/* Ajuste para el año que suele ser gris */
-#yearSelect {
-    color: #6c757d;
-    border-bottom-color: #6c757d;
-     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%236c757d' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    from { opacity: 0.5; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
 }
