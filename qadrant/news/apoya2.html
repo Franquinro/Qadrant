@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Bootstrap CSS (ya lo usabas) -->
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
 
     <style>
@@ -42,14 +42,6 @@
         margin: 0 6px 6px 0;
       }
       .btn-block + .btn-block { margin-top: 8px; }
-      .qr {
-        background: #fafafa;
-        border: 1px solid #eee;
-        border-radius: 10px;
-        padding: 12px;
-        text-align: center;
-      }
-      .qr img { max-width: 220px; width: 100%; height: auto; border-radius: 8px; }
       .hr { height: 1px; background: #eee; margin: 14px 0; }
       .toast {
         display: none;
@@ -73,7 +65,7 @@
       <div class="card">
 
         <div class="hero">
-          <h3>Qadrant <span id="year"></span></h3>
+          <h3>Qadrant 2026</h3>
           <div>Si te ahorra tiempo, puedes echar una mano para que siga <strong>sin anuncios</strong> y con mejoras.</div>
         </div>
 
@@ -94,7 +86,7 @@
         <div class="bizum-number" id="bizumNumber">677 527 817</div>
 
         <p class="muted" style="margin-bottom:8px;">
-          Concepto recomendado: <strong id="bizumConcept">Qadrant</strong>
+          Concepto recomendado: <strong id="bizumConcept">Qadrant 2026</strong>
         </p>
 
         <div class="amounts" style="margin-bottom:6px;">
@@ -109,22 +101,6 @@
 
         <div class="toast" id="toast"></div>
 
-        <div style="margin-top:12px;" class="qr">
-          <div class="small" style="margin-bottom:8px;">
-            Escanea este QR para copiar rápido el número (si tu banco no admite QR, usa “Copiar”).
-          </div>
-          <img id="qrImg" alt="QR Bizum" />
-          <div class="small" style="margin-top:8px;">
-            Tip: Bizum → Enviar dinero → Pega el número → (Concepto) Qadrant
-          </div>
-        </div>
-
-        <div class="hr"></div>
-
-        <h4 style="margin-top:0;">¿No puedes aportar ahora? Ayuda igualmente</h4>
-        <button class="btn btn-success btn-block" onclick="openPlayStore()">Valorar en Play Store ⭐</button>
-        <button class="btn btn-info btn-block" onclick="shareApp()">Compartir con un compañero</button>
-
         <div class="signature">
           <br />
           Atentamente,<br />
@@ -132,24 +108,15 @@
         </div>
 
         <div class="small" style="margin-top:10px;">
-          Gracias por usar Qadrant y por cualquier gesto (Bizum, valoración o difusión). 🙌
+          Gracias por usar Qadrant y por cualquier gesto. 🙌
         </div>
       </div>
     </div>
 
     <script>
       // CONFIG
-      // Ojo: cambia APP_ID si tu id real en Play Store es distinto.
-      var APP_ID = "qadrandroid.fq.org";
       var BIZUM_RAW = "677527817"; // sin espacios
-      var CONCEPT = "Qadrant";
-
-      document.getElementById("year").textContent = new Date().getFullYear();
-
-      // QR simple (codifica el número para copiarlo rápido)
-      // Si prefieres un QR "offline" (sin depender de internet), dímelo y te lo dejo embebido.
-      var qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=" + encodeURIComponent(BIZUM_RAW);
-      document.getElementById("qrImg").src = qrUrl;
+      var CONCEPT = "Qadrant 2026";
 
       function showToast(msg) {
         var t = document.getElementById("toast");
@@ -200,25 +167,6 @@
 
       function suggestAmount(a) {
         showToast("Importe sugerido: " + a + " (ponlo en Bizum)");
-      }
-
-      function openPlayStore() {
-        // Mejor enlace universal (funciona dentro/fuera de WebView)
-        var url = "https://play.google.com/store/apps/details?id=" + encodeURIComponent(APP_ID);
-        window.location.href = url;
-      }
-
-      function shareApp() {
-        var url = "https://play.google.com/store/apps/details?id=" + encodeURIComponent(APP_ID);
-        var text = "Yo uso Qadrant para el cuadrante. Si te viene bien, aquí está: " + url;
-
-        if (navigator.share) {
-          navigator.share({ title: "Qadrant", text: text, url: url }).catch(function(){});
-        } else {
-          copyText(text)
-            .then(function () { showToast("Texto para compartir copiado ✅"); })
-            .catch(function () { showToast("Copia y comparte este enlace: " + url); });
-        }
       }
     </script>
   </body>
