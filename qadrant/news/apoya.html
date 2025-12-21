@@ -1,173 +1,331 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Agradecer a Qadrant</title>
+<html lang="es">
+<head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>Agradecer a Qadrant</title>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     <style>
-      body { margin-top: 10px; background: #f6f6f6; }
-      .wrap { max-width: 520px; margin: 0 auto; }
-      .card {
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0,0,0,.08);
-        background: #ffffff;
-        padding: 16px;
-      }
-      .hero {
-        border-radius: 10px;
-        background: #baa9ba;
-        color: #ffffff;
-        padding: 16px;
-        margin-bottom: 12px;
-      }
-      .hero h3 { margin: 0 0 6px 0; font-weight: 700; }
-      .muted { color: #66615b; }
-      .bizum-number {
-        font-size: 26px;
-        font-weight: 800;
-        letter-spacing: 1px;
-        margin: 8px 0 10px 0;
-        color: #2b2b2b;
-      }
-      .pill {
-        display: inline-block;
-        background: #f2f2f2;
-        border-radius: 999px;
-        padding: 2px 10px;
-        font-size: 12px;
-        margin: 0 6px 6px 0;
-      }
-      .btn-block + .btn-block { margin-top: 8px; }
-      .hr { height: 1px; background: #eee; margin: 14px 0; }
-      .toast {
-        display: none;
-        margin-top: 10px;
-        padding: 10px 12px;
-        border-radius: 8px;
-        background: #e8f5e9;
-        border: 1px solid #c8e6c9;
-        color: #1b5e20;
-        font-weight: 600;
-      }
-      .small { font-size: 12px; color: #777; }
-      .amounts .btn { margin: 0 6px 6px 0; }
-      .signature { margin-top: 12px; color: #546E7A; }
-      .signature strong { color: #37474F; }
+        :root {
+            --primary-color: #00838F;
+            --accent-color: #A4AE53;
+            --bg-color: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: #343a40;
+            padding-top: 20px;
+            padding-bottom: 40px;
+        }
+
+        .main-card {
+            border: none;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+            overflow: hidden;
+            background: white;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* Cabecera con degradado Qadrant */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 32px 24px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-section h3 {
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .hero-text {
+            font-size: 0.95rem;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+
+        .content-section {
+            padding: 24px;
+        }
+
+        /* Features pills */
+        .feature-badge {
+            background-color: #f1f3f5;
+            color: #495057;
+            border: 1px solid #e9ecef;
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+            margin-right: 4px;
+        }
+
+        .feature-badge i { color: var(--primary-color); }
+
+        /* Bizum Box Moderno */
+        .bizum-container {
+            background-color: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            margin: 24px 0;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .bizum-number {
+            font-family: 'Inter', monospace;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #212529;
+            letter-spacing: 2px;
+            margin: 10px 0;
+        }
+
+        .bizum-label {
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: 1px;
+        }
+
+        /* Botones de importe */
+        .btn-amount {
+            border-radius: 12px;
+            border: 1px solid #dee2e6;
+            font-weight: 600;
+            padding: 8px 16px;
+            transition: all 0.2s;
+            background: white;
+            color: #495057;
+        }
+        .btn-amount:active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: scale(0.95);
+        }
+
+        /* Botón Principal */
+        .btn-copy {
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 16px;
+            padding: 14px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(0, 131, 143, 0.3);
+            transition: transform 0.2s;
+        }
+        .btn-copy:active {
+            transform: scale(0.98);
+            background-color: #006064;
+        }
+
+        /* Toast Personalizado */
+        .custom-toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #333;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+        .custom-toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .divider {
+            height: 1px;
+            background: #f1f3f5;
+            margin: 24px 0;
+        }
+
+        .signature {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
     </style>
-  </head>
+</head>
+<body>
 
-  <body>
-    <div class="container wrap">
-      <div class="card">
+    <div class="container">
+        <div class="main-card">
+            <!-- Hero Header -->
+            <div class="hero-section">
+                <i class="bi bi-gift-fill display-4 mb-2"></i>
+                <h3>Apoya Qadrant</h3>
+                <div class="hero-text">
+                    Si la app te ayuda en tu día a día,<br>un pequeño gesto ayuda a mantenerla.
+                </div>
+            </div>
 
-        <div class="hero">
-          <h3>Qadrant 2026</h3>
-          <div>Si te ahorra tiempo, puedes echar una mano para que siga <strong>sin anuncios</strong> y con mejoras.</div>
+            <div class="content-section">
+                <!-- Beneficios -->
+                <div class="mb-4">
+                    <div class="feature-badge"><i class="bi bi-check-circle-fill"></i> Sin anuncios</div>
+                    <div class="feature-badge"><i class="bi bi-cloud-arrow-up-fill"></i> Nube gratis</div>
+                    <div class="feature-badge"><i class="bi bi-tools"></i> Mantenimiento</div>
+                </div>
+
+                <p class="text-muted small mb-4">
+                    Mantener Qadrant en Play Store y desarrollar nuevas funciones requiere tiempo y recursos. Invítame a un café virtual ☕ para que el proyecto siga vivo.
+                </p>
+
+                <!-- Caja Bizum -->
+                <div class="bizum-container" onclick="copyNumber()">
+                    <div class="bizum-label"><i class="bi bi-phone"></i> Bizum</div>
+                    <div class="bizum-number">677 527 817</div>
+                    <div class="text-muted small">
+                        Concepto: <strong>Qadrant 2026</strong>
+                    </div>
+                </div>
+
+                <!-- Sugerencias -->
+                <div class="d-flex justify-content-center gap-2 mb-4">
+                    <button class="btn btn-amount" onclick="suggestAmount('3€')">3€</button>
+                    <button class="btn btn-amount" onclick="suggestAmount('5€')">5€</button>
+                    <button class="btn btn-amount" onclick="suggestAmount('10€')">10€</button>
+                </div>
+
+                <!-- Botón Acción -->
+                <button class="btn btn-primary btn-copy" onclick="copyNumber()">
+                    <i class="bi bi-clipboard"></i> Copiar Número
+                </button>
+
+                <div class="divider"></div>
+
+                <!-- Firma -->
+                <div class="text-center signature">
+                    <div class="mb-1">Atentamente,</div>
+                    <strong style="color: #343a40;">Francisco Quintana</strong>
+                    <div class="small text-muted mt-2">Gracias por usar la App 🙌</div>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <p class="muted" style="margin-bottom:8px;">
-          Mantener la app en <strong>Play Store</strong>, corregir fallos y seguir mejorando requiere horas de desarrollo y pruebas.
-          Un detalle pequeño (un café ☕) marca la diferencia.
-        </p>
-
-        <div>
-          <span class="pill">✅ Sin anuncios</span>
-          <span class="pill">✅ Actualizaciones</span>
-          <span class="pill">✅ Correcciones y mejoras</span>
-        </div>
-
-        <div class="hr"></div>
-
-        <h4 style="margin-top:0;">Bizum</h4>
-        <div class="bizum-number" id="bizumNumber">677 527 817</div>
-
-        <p class="muted" style="margin-bottom:8px;">
-          Concepto recomendado: <strong id="bizumConcept">Qadrant 2026</strong>
-        </p>
-
-        <div class="amounts" style="margin-bottom:6px;">
-          <div class="small" style="margin-bottom:6px;">Importe sugerido:</div>
-          <button class="btn btn-default" onclick="suggestAmount('2€')">2€</button>
-          <button class="btn btn-default" onclick="suggestAmount('5€')">5€</button>
-          <button class="btn btn-default" onclick="suggestAmount('10€')">10€</button>
-        </div>
-
-        <button class="btn btn-primary btn-block" onclick="copyNumber()">Copiar número Bizum</button>
-        <button class="btn btn-default btn-block" onclick="copyConcept()">Copiar concepto</button>
-
-        <div class="toast" id="toast"></div>
-
-        <div class="signature">
-          <br />
-          Atentamente,<br />
-          <strong>Francisco Quintana</strong>
-        </div>
-
-        <div class="small" style="margin-top:10px;">
-          Gracias por usar Qadrant y por cualquier gesto. 🙌
-        </div>
-      </div>
+    <!-- Toast Notification -->
+    <div id="toast" class="custom-toast">
+        <i class="bi bi-check-circle-fill text-success"></i>
+        <span id="toastMsg">Mensaje</span>
     </div>
 
     <script>
-      // CONFIG
-      var BIZUM_RAW = "677527817"; // sin espacios
-      var CONCEPT = "Qadrant 2026";
+        const BIZUM_RAW = "677527817";
+        let toastTimer;
 
-      function showToast(msg) {
-        var t = document.getElementById("toast");
-        t.textContent = msg;
-        t.style.display = "block";
-        clearTimeout(window.__toastTimer);
-        window.__toastTimer = setTimeout(function () {
-          t.style.display = "none";
-        }, 2500);
-      }
+        function showToast(msg, isError = false) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            const icon = toast.querySelector('i');
 
-      function copyText(text) {
-        // Moderno
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          return navigator.clipboard.writeText(text);
+            toastMsg.textContent = msg;
+            
+            // Cambiar icono según estado
+            if(isError) {
+                icon.className = "bi bi-exclamation-circle-fill text-danger";
+            } else {
+                icon.className = "bi bi-check-circle-fill text-success";
+            }
+
+            toast.classList.add('show');
+
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
         }
-        // Fallback WebView antiguo
-        return new Promise(function (resolve, reject) {
-          try {
-            var ta = document.createElement("textarea");
-            ta.value = text;
-            ta.setAttribute("readonly", "");
-            ta.style.position = "absolute";
-            ta.style.left = "-9999px";
-            document.body.appendChild(ta);
-            ta.select();
-            var ok = document.execCommand("copy");
-            document.body.removeChild(ta);
-            if (ok) resolve();
-            else reject(new Error("copy failed"));
-          } catch (e) {
-            reject(e);
-          }
-        });
-      }
 
-      function copyNumber() {
-        copyText(BIZUM_RAW)
-          .then(function () { showToast("Número copiado ✅"); })
-          .catch(function () { showToast("No pude copiar automáticamente. Copia el número manualmente."); });
-      }
+        // Lógica de copiado robusta para Android WebView
+        function copyText(text) {
+            // Intento 1: API Moderna (Navigator)
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                return navigator.clipboard.writeText(text);
+            }
+            
+            // Intento 2: Fallback clásico (execCommand) - Más fiable en WebViews antiguos
+            return new Promise((resolve, reject) => {
+                try {
+                    const textArea = document.createElement("textarea");
+                    textArea.value = text;
+                    
+                    // Asegurar que no sea visible ni desplace el scroll
+                    textArea.style.position = "fixed";
+                    textArea.style.left = "-9999px";
+                    textArea.style.top = "0";
+                    textArea.setAttribute("readonly", "");
+                    
+                    document.body.appendChild(textArea);
+                    textArea.focus();
+                    textArea.select();
+                    
+                    const successful = document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    
+                    if (successful) resolve();
+                    else reject(new Error("Fallo execCommand"));
+                } catch (err) {
+                    reject(err);
+                }
+            });
+        }
 
-      function copyConcept() {
-        copyText(CONCEPT)
-          .then(function () { showToast("Concepto copiado ✅"); })
-          .catch(function () { showToast("No pude copiar automáticamente. Copia el concepto manualmente."); });
-      }
+        function copyNumber() {
+            // Feedback táctil visual (opcional)
+            const container = document.querySelector('.bizum-container');
+            container.style.backgroundColor = "#e6fcf5";
+            container.style.borderColor = "#20c997";
+            setTimeout(() => {
+                container.style.backgroundColor = "#f8f9fa";
+                container.style.borderColor = "#dee2e6";
+            }, 200);
 
-      function suggestAmount(a) {
-        showToast("Importe sugerido: " + a + " (ponlo en Bizum)");
-      }
+            copyText(BIZUM_RAW)
+                .then(() => showToast("¡Número copiado! Abre tu app bancaria."))
+                .catch(() => showToast("Error al copiar. Hazlo manualmente.", true));
+        }
+
+        function suggestAmount(amount) {
+            showToast(`Importe sugerido: ${amount}`);
+        }
     </script>
-  </body>
+</body>
 </html>
