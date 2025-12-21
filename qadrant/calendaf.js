@@ -1,5 +1,5 @@
-document.addEventListener("DOMContentLoaded", function() {
-    CanvasCalendar.initialize();
+document.addEventListener("DOMContentLoaded", function () {
+        CanvasCalendar.initialize();
 });
 
 // --- VARIABLES GLOBALES ---
@@ -14,7 +14,7 @@ var isLocked = false;
 
 // Configuración de años
 var primerAnio = 2007;
-var ultimoAnyo = 2025;
+var ultimoAnyo = 2026;
 
 
 // TUS DATOS ORIGINALES (MANTENLOS TAL CUAL EN EL ARCHIVO)
@@ -512,7 +512,7 @@ var cuadrante = [
                 [443219, 149329, 149324, 249931, 299931, 391992, 341992, 942193, 942143, 943219, 443219, 199329, 199329, 219934, 214934, 321994, 321494, 932194, 932199, 993219, 993214, 199324, 149324, 219934, 214934, 321999, 321999, 932491, 932441, 993412, 493412],
                 [199423, 199923, 219939, 219439, 321499, 321494, 932491, 932441, 993912, 993912, 499123, 449123, 419239, 414239, 421399, 921399, 932991, 432991, 493912, 493412, 499123, 449123, 919239, 919239, 124399, 124394, 234991, 234941, 394912, 399912],
                 [999123, 994123, 914239, 414239, 124399, 124399, 239991, 239991, 391942, 391442, 992143, 942143, 913249, 913299, 129399, 129344, 239941, 234941, 391942, 391442, 992193, 992193, 943219, 943219, 149329, 149329, 249931, 299931, 391992, 341992, 942193]
-                ],
+        ],
         [
                 [942193, 943219, 943219, 199329, 199329, 219934, 219934, 321994, 321494, 932194, 932199, 993219, 993214, 199324, 149324, 219934, 214934, 321999, 321999, 932491, 932491, 993412, 493412, 199423, 199923, 219939, 214439, 321499, 321494, 932491, 932441],
                 [993912, 993912, 499123, 499123, 419239, 414239, 421399, 921399, 932991, 432991, 493912, 493412, 499123, 449123, 919239, 919239, 124399, 124394, 234991, 234941, 394912, 399912, 999123, 994123, 914239, 414239, 124399, 124394],
@@ -528,18 +528,33 @@ var cuadrante = [
                 [341992, 942193, 942143, 943219, 943219, 199329, 199329, 219934, 214934, 321994, 321494, 932194, 932199, 993219, 993214, 199324, 149324, 219934, 219934, 321999, 321999, 932491, 932491, 993412, 993412, 199423, 199923, 219939, 219439, 321499, 321499]
         ],
         [
-                [942193, 943219, 943219, 199329, 199329, 219934, 219934, 321994, 321494, 932194, 932199, 993219, 993214, 199324, 149324, 219934, 214934, 321999, 321999, 932491, 932491, 993412, 493412, 199423, 199923, 219939, 214439, 321499, 321494, 932491, 932441],
-                [993912, 993912, 499123, 499123, 419239, 414239, 421399, 921399, 932991, 432991, 493912, 493412, 499123, 449123, 919239, 919239, 124399, 124394, 234991, 234941, 394912, 399912, 999123, 994123, 914239, 414239, 124399, 124394],
-                [239991, 239991, 391942, 391942, 992143, 942143, 913249, 913299, 129399, 129349, 239941, 234941, 391942, 391442, 992193, 992193, 943219, 443219, 149329, 149324, 249931, 299931, 391992, 341992, 942193, 942143, 943219, 443219, 199329, 199329, 219934],
-                [214934, 321994, 321494, 932194, 932199, 993219, 993214, 199324, 149324, 219934, 214934, 321999, 321999, 932491, 932491, 993412, 993412, 199423, 199923, 219939, 219439, 321499, 321494, 932491, 932441, 993912, 993912, 199423, 149423, 219439],
-                [219439, 321499, 321999, 932991, 932491, 993412, 493412, 199423, 199423, 219939, 219939, 324199, 324194, 934291, 934241, 994312, 999312, 199923, 194923, 214939, 214439, 324199, 324194, 939291, 939291, 994312, 494312, 194923, 144923, 214939, 219939],
-                [329199, 324199, 934291, 934241, 994312, 494312, 199923, 199923, 241939, 241439, 342199, 342194, 943291, 993291, 999312, 949312, 149923, 144923, 241939, 241939, 392199, 392199, 943291, 943291, 949312, 949312, 149923, 199923, 291939, 241939],
-                [342199, 342199, 943291, 943291, 999312, 999312, 419923, 419923, 421939, 421939, 432199, 932199, 993291, 493291, 499312, 499312, 419923, 419923, 921939, 921939, 432199, 432199, 493291, 493291, 499312, 999312, 919923, 419923, 421939, 421939, 432199],
-                [432199, 993291, 993291, 199342, 199342, 219943, 219943, 321949, 321999, 932199, 932149, 993241, 993241, 199342, 199342, 219993, 219993, 321949, 321949, 932149, 932149, 993241, 993291, 199392, 199342, 219943, 219943, 321949, 321949, 932199, 932199],
-                [993214, 993214, 199324, 149324, 219934, 219939, 321999, 321994, 932194, 932144, 993214, 493214, 199329, 199329, 219934, 214934, 321994, 321494, 932194, 932199, 993219, 993214, 199324, 199324, 219934, 214934, 321999, 321999, 932491, 932441],
-                [993412, 493412, 199423, 199923, 219939, 219439, 321499, 321494, 932491, 932441, 993912, 993912, 499123, 449123, 419239, 414239, 421399, 921399, 932991, 432991, 493912, 493412, 499123, 499123, 919239, 919239, 124399, 124394, 234991, 234941, 394912],
-                [399912, 999123, 994123, 914239, 414239, 124399, 124394, 239991, 239991, 391942, 391942, 992143, 942143, 913249, 913299, 129399, 129349, 239941, 234941, 391942, 391442, 992193, 992193, 943219, 443219, 149329, 149324, 249931, 299931, 391992],
-                [341992, 942193, 942143, 943219, 943219, 199329, 199329, 219934, 214934, 321994, 321494, 932194, 932199, 993219, 993214, 199324, 149324, 219934, 219934, 321999, 321999, 932491, 932491, 993412, 993412, 199423, 199923, 219939, 219439, 321499, 321499]
+                [932491, 932491, 993912, 993912, 499123, 499123, 419239, 419239, 421399, 921399, 932991, 432991, 493912, 493412, 499123, 449123, 919239, 919239, 124399, 124394, 234991, 234941, 394912, 399912, 999123, 994123, 914239, 414239, 124399, 124399, 239991],
+                [239991, 391942, 391942, 992143, 942143, 913249, 913299, 129399, 129349, 239941, 234941, 391942, 391442, 992193, 992193, 943219, 943219, 149329, 149324, 249931, 299931, 391992, 341992, 942193, 942143, 943219, 443219, 199329],
+                [199329, 219934, 214934, 321994, 321494, 932194, 932199, 993219, 493214, 199324, 149324, 219934, 219934, 321999, 321999, 932491, 932441, 993412, 993412, 199423, 199923, 219939, 214439, 321499, 321494, 932491, 932491, 993912, 993912, 499123, 449123],
+                [419239, 419239, 421399, 921399, 932991, 432991, 493912, 493412, 499123, 449123, 919239, 919239, 124399, 124394, 234991, 234941, 394912, 399912, 999123, 994123, 914239, 414239, 124399, 124394, 239991, 239991, 391942, 391442, 992143, 942143],
+                [913249, 913299, 129399, 129349, 239941, 234941, 391942, 391942, 992193, 992193, 913249, 413249, 129349, 129344, 239941, 239991, 391992, 391942, 992143, 942143, 913249, 413249, 129399, 129399, 239914, 234914, 391924, 391424, 992134, 992139, 913299],
+                [913294, 129394, 129344, 239914, 239914, 391929, 391929, 992134, 942134, 913294, 413294, 129394, 129399, 239919, 234914, 391924, 391424, 992134, 992134, 913299, 913299, 429391, 429341, 439912, 439912, 491923, 991923, 992139, 492139, 413299],
+                [413299, 429391, 429391, 939912, 939912, 491923, 491923, 492139, 492139, 413299, 913299, 929391, 429391, 439912, 439912, 491923, 491923, 992139, 992139, 143299, 143299, 249391, 249391, 349912, 399912, 991923, 941923, 942139, 942139, 143299, 143299],
+                [299391, 299391, 349912, 349912, 941923, 941923, 942139, 992139, 193299, 143299, 249391, 249391, 349912, 349912, 991923, 991923, 912439, 912439, 123499, 123499, 239491, 239991, 399912, 399412, 991423, 991423, 912439, 912439, 123999, 123999, 239491],
+                [239491, 399412, 399412, 991423, 991923, 912939, 912439, 123499, 123494, 239491, 239441, 399912, 399912, 994123, 994123, 914239, 414239, 124399, 129399, 239991, 234991, 394912, 394412, 994123, 944123, 919239, 919239, 124399, 124394, 234991],
+                [234941, 394912, 399912, 999123, 994123, 914239, 914239, 124399, 124399, 239991, 239991, 391942, 391942, 992143, 942143, 913249, 913299, 129399, 129349, 239941, 234941, 391942, 391442, 992193, 992193, 943219, 443219, 149329, 149324, 249931, 299931],
+                [391992, 341992, 942193, 942143, 943219, 443219, 199329, 199329, 219934, 214934, 321994, 321994, 932194, 932199, 993219, 993214, 199324, 149324, 219934, 219934, 321999, 321999, 932491, 932441, 993412, 493412, 199423, 199923, 219939, 214439],
+                [321499, 321494, 932491, 932491, 993912, 993912, 499123, 499123, 419239, 419239, 421399, 921399, 932991, 432991, 493912, 493912, 499123, 499123, 919239, 919239, 124399, 124399, 234991, 234991, 394912, 399912, 999123, 994123, 914239, 914239, 124399]
+        ],
+        // 2027
+        [
+                [124399, 239991, 239991, 391942, 391942, 992143, 992143, 913249, 913299, 129399, 129349, 239941, 239941, 391942, 391942, 992193, 992193, 943219, 943219, 149329, 149329, 249931, 299931, 391992, 341992, 942193, 942193, 943219, 943219, 199329, 199329],
+                [219934, 219934, 321994, 321994, 932194, 932199, 993219, 993214, 199324, 199324, 219934, 219934, 321999, 321999, 932491, 932491, 993412, 993412, 199423, 199923, 219939, 219439, 321499, 321499, 932491, 932491, 993912, 993912],
+                [499123, 499123, 419239, 419239, 421399, 921399, 932991, 432991, 493912, 493912, 499123, 499123, 919239, 919239, 124399, 124399, 234991, 234991, 394912, 399912, 999123, 994123, 914239, 914239, 124399, 124399, 239991, 239991, 391942, 391942, 992143],
+                [992143, 913249, 913299, 129399, 129349, 239941, 239941, 391942, 391942, 992193, 992193, 943219, 943219, 149329, 149329, 249931, 299931, 391992, 341992, 942193, 942193, 943219, 943219, 199329, 199329, 219934, 219934, 321994, 321994, 932194],
+                [932199, 993219, 993214, 199324, 199324, 219934, 219934, 321999, 321999, 932194, 932194, 993214, 993214, 199324, 199329, 219939, 219934, 321994, 321994, 932194, 932194, 993219, 993219, 499321, 499321, 419932, 419932, 421993, 921993, 932199, 432199],
+                [493219, 493219, 499321, 499321, 919932, 919932, 421993, 421993, 432199, 432199, 493219, 993219, 999321, 499321, 419932, 419932, 421993, 421993, 932199, 932199, 193249, 193249, 299341, 299341, 319942, 319992, 921993, 921943, 932149, 932149],
+                [193249, 193249, 299391, 299391, 319942, 319942, 921943, 921943, 932149, 932199, 193299, 193249, 299341, 299341, 319942, 319942, 921993, 921993, 932419, 932419, 193429, 193429, 299431, 299931, 319992, 319492, 921493, 921493, 932419, 932419, 193929],
+                [193929, 299431, 299431, 319492, 319492, 921493, 921993, 932919, 932419, 193429, 193429, 299431, 299431, 319992, 319992, 924193, 924193, 934219, 934219, 194329, 199329, 299931, 294931, 314992, 314992, 924193, 924193, 939219, 939219, 194329, 194329],
+                [294931, 294931, 314992, 319992, 929193, 924193, 934219, 934219, 194329, 194329, 299931, 299931, 341992, 341992, 942193, 942193, 943219, 993219, 199329, 149329, 249931, 249931, 341992, 341992, 992193, 992193, 943219, 943219, 149329, 149329],
+                [249931, 299931, 391992, 341992, 942193, 942193, 943219, 943219, 199329, 199329, 219934, 219934, 321994, 321994, 932194, 932199, 993219, 993214, 199324, 199324, 219934, 219934, 321999, 321999, 932491, 932491, 993412, 993412, 199423, 199923, 219939],
+                [219439, 321499, 321499, 932491, 932491, 993912, 993912, 499123, 499123, 419239, 419239, 421399, 921399, 932991, 432991, 493912, 493912, 499123, 499123, 919239, 919239, 124399, 124399, 234991, 234991, 394912, 399912, 999123, 994123, 914239],
+                [914239, 124399, 124399, 239991, 239991, 391942, 391942, 992143, 992143, 913249, 913299, 129399, 129349, 239941, 239941, 391942, 391942, 992193, 992193, 943219, 943219, 149329, 149329, 249931, 299931, 391992, 341992, 942193, 942193, 943219, 943219]
         ]
 ];
 
@@ -558,296 +573,325 @@ var festivos = ["20110101", "20110106", "20110421", "20110422", "20110530", "201
         "20220101", "20220106", "20220414", "20220415", "20220530", "20220815", "20221012", "20221101", "20221206", "20221208", "20221226",
         "20230101", "20230106", "20230406", "20230407", "20230501", "20230530", "20230815", "20231012", "20231101", "20231206", "20231208", "20231225",
         "20240101", "20240106", "20240328", "20240329", "20240501", "20240530", "20240815", "20241012", "20241101", "20241206", "20241208", "20241225",
-        "20250101", "20250106", "20250417", "20250418", "20250501", "20250530", "20250815", "20251012", "20251101", "20251206", "20251208", "20251225"
+        "20250101", "20250106", "20250417", "20250418", "20250501", "20250530", "20250815", "20251012", "20251101", "20251206", "20251208", "20251225",
+
+        // Festivos 2026 (actualizados)
+                "20260101", // Año Nuevo
+                "20260106", // Día de Reyes
+                "20260402", // Jueves Santo
+                "20260403", // Viernes Santo
+                "20260501", // Día del Trabajador
+                "20260530", // Día de Canarias
+                "20260815", // Asunción de la Virgen
+                "20261012", // Fiesta Nacional de España
+                "20261102", // Lunes siguiente a Todos los Santos (previsión)
+                "20261207", // Lunes siguiente al Día de la Constitución (previsión)
+                "20261208", // Inmaculada Concepción
+                "20261225", // Navidad
+
+                // Festivos 2027 (nuevos)
+                "20270101", // Año Nuevo
+                "20270106", // Día de Reyes
+                "20270325", // Jueves Santo
+                "20270326", // Viernes Santo
+                "20270501", // Día del Trabajador
+                "20270531", // Lunes siguiente al Día de Canarias (previsión)
+                "20270816", // Lunes siguiente a la Asunción (previsión)
+                "20271012", // Fiesta Nacional de España
+                "20271101", // Día de Todos los Santos
+                "20271206", // Día de la Constitución
+                "20271208", // Inmaculada Concepción
+                "20271225"  // Navidad
+
 ];
 
 
 window.CanvasCalendar = {
 
-    initialize: function() {
-        var now = new Date();
-        thisMonth = now.getMonth() + 1;
-        thisYear = now.getFullYear();
-        selectedDate = new Date(thisYear, thisMonth - 1, 1);
+        initialize: function () {
+                var now = new Date();
+                thisMonth = now.getMonth() + 1;
+                thisYear = now.getFullYear();
+                selectedDate = new Date(thisYear, thisMonth - 1, 1);
 
-        // Rellenar años
-        var yearSelect = document.getElementById('yearSelect');
-        if(yearSelect) {
-            yearSelect.innerHTML = "";
-            for (var y = primerAnio; y <= ultimoAnyo; y++) {
-                var opt = document.createElement('option');
-                opt.value = y;
-                opt.innerHTML = y;
-                yearSelect.appendChild(opt);
-            }
-        }
-
-        // Hammer.js
-        var myElement = document.getElementById('calendar-container');
-        var mc = new Hammer(myElement);
-        mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-
-        mc.on("swipeleft swiperight swipeup swipedown", function(ev) {
-            if (isLocked && (ev.type == "swipeup" || ev.type == "swipedown")) return;
-
-            if (ev.type == "swipeleft") mesMas();
-            if (ev.type == "swiperight") mesMenos();
-            if (ev.type == "swipedown") turnoMenos(); // Solo cambia visual
-            if (ev.type == "swipeup") turnoMas();     // Solo cambia visual
-        });
-
-        // Listeners Mes/Año
-        document.getElementById('monthSelect').addEventListener('change', function() {
-            thisMonth = parseInt(this.value);
-            selectedDate = new Date(thisYear, thisMonth - 1, 1);
-            CanvasCalendar.refreshCalendar();
-        });
-
-        document.getElementById('yearSelect').addEventListener('change', function() {
-            thisYear = parseInt(this.value);
-            selectedDate = new Date(thisYear, thisMonth - 1, 1);
-            CanvasCalendar.refreshCalendar();
-        });
-
-        // Listener Turno (Footer) - ESTE ES EL MASTER
-        var elTurno = document.getElementById('turnoDef');
-        elTurno.addEventListener('change', function() {
-            turnoDefecto = parseInt(this.value); // Actualizamos el defecto
-            turnoVisual = turnoDefecto;          // Sincronizamos la vista
-            setCookie('turnoDef', turnoDefecto.toString(), 365);
-            CanvasCalendar.refreshCalendar();
-        });
-
-        // Listener Candado
-        var lockToggle = document.getElementById('lockToggle');
-        lockToggle.addEventListener('change', function() {
-            toggleLock(this.checked);
-        });
-
-        // Carga inicial
-        checkCookie(); // Carga turnoDefecto
-        turnoVisual = turnoDefecto; // Al iniciar, vemos el defecto
-        
-        checkLockCookie(); // Carga bloqueo
-
-        elTurno.value = turnoDefecto.toString();
-
-        this.refreshCalendar();
-    },
-
-    refreshCalendar: function() {
-        var textoTurno = ["Turno A", "Turno B", "Turno C", "Turno D", "Turno E", "Turno F"];
-        
-        // Actualizar selects cabecera
-        document.getElementById('monthSelect').value = thisMonth;
-        document.getElementById('yearSelect').value = thisYear;
-
-        // Actualizar Turno Visual (HEADER - GRANDE)
-        var displayDiv = document.getElementById("turno-display");
-        //var statusDiv = document.getElementById("turno-status"); // Nuevo div creado en HTML
-        
-        displayDiv.innerText = textoTurno[turnoVisual];
-        document.getElementById("titulo").innerText = "Qadrant " + thisYear;
-        
-        // Lógica visual de "Turno Ajeno"
-        if (turnoVisual !== turnoDefecto) {
-            // Si estoy viendo otro turno
-            displayDiv.classList.remove('text-danger');
-            displayDiv.classList.add('text-warning'); // Color naranja/amarillo oscuro
-            
-            // Aviso debajo
-            // statusDiv.innerHTML = '<span class="badge bg-warning text-dark">Vista Temporal</span>';
-        } else {
-            // Si es mi turno
-            displayDiv.classList.remove('text-warning');
-            displayDiv.classList.add('text-danger');
-            
-            // Limpiar aviso
-            // statusDiv.innerHTML = '';
-        }
-        
-        // Actualizar Turno Defecto (FOOTER PEQUEÑO)
-        document.getElementById("turnoDef").value = turnoDefecto; 
-
-        this.drawCalendarDOM();
-    },
-
-    drawCalendarDOM: function() {
-        var grid = document.getElementById('calendar-grid');
-        grid.classList.remove('fade-in');
-        void grid.offsetWidth; 
-        grid.classList.add('fade-in');
-        grid.innerHTML = ""; 
-
-        var prevMonthLastDate = getLastDayOfMonth(thisMonth - 1, thisYear);
-        var thisMonthLastDate = getLastDayOfMonth(thisMonth, thisYear);
-        
-        var firstDayObj = new Date(thisYear, thisMonth - 1, 1);
-        var thisMonthFirstDay = firstDayObj.getDay() - 1; 
-        if (thisMonthFirstDay < 0) thisMonthFirstDay = 6;
-
-        var monthDay = 0;
-        var dateOffset = thisMonthFirstDay;
-        
-        for (var j = 0; j < 6; j++) { 
-            for (var i = 0; i < 7; i++) { 
-                var cell = document.createElement('div');
-                cell.className = 'day-cell';
-                var dayNumber = 0;
-                var isCurrentMonth = false;
-
-                if (j === 0 && i < thisMonthFirstDay) {
-                    dayNumber = prevMonthLastDate - (dateOffset - i) + 1;
-                    cell.classList.add('other-month');
-                } else if (monthDay < thisMonthLastDate) {
-                    monthDay++;
-                    dayNumber = monthDay;
-                    isCurrentMonth = true;
-                } else {
-                    monthDay++;
-                    dayNumber = monthDay - thisMonthLastDate;
-                    cell.classList.add('other-month');
-                }
-
-                // PINTAR COLORES: Usamos turnoVisual
-                if (isCurrentMonth && (thisYear - primerAnio) >= 0 && cuadrante[thisYear - primerAnio]) {
-                    try {
-                        var turnoStr = cuadrante[(thisYear - primerAnio)][thisMonth - 1][(dayNumber - 1)];
-                        if(turnoStr === undefined) turnoStr = "999999";
-                        turnoStr = turnoStr.toString();
-                        
-                        // Usamos turnoVisual aquí
-                        var turnoInt = parseInt(turnoStr.substring(turnoVisual, turnoVisual + 1));
-                        
-                        if (turnoInt >= 1 && turnoInt <= 4) {
-                            cell.classList.add('shift-type-' + turnoInt);
+                // Rellenar años
+                var yearSelect = document.getElementById('yearSelect');
+                if (yearSelect) {
+                        yearSelect.innerHTML = "";
+                        for (var y = primerAnio; y <= ultimoAnyo; y++) {
+                                var opt = document.createElement('option');
+                                opt.value = y;
+                                opt.innerHTML = y;
+                                yearSelect.appendChild(opt);
                         }
-                    } catch (e) {}
                 }
 
-                if (isCurrentMonth) {
-                    var dateString = thisYear.toString() + 
-                                     ((thisMonth < 10) ? "0" + thisMonth : thisMonth) + 
-                                     ((dayNumber < 10) ? "0" + dayNumber : dayNumber);
-                    
-                    if (i === 6 || festivos.includes(dateString)) { 
-                        cell.classList.add('is-holiday');
-                    }
+                // Hammer.js
+                var myElement = document.getElementById('calendar-container');
+                var mc = new Hammer(myElement);
+                mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
 
-                    var today = new Date();
-                    if (dayNumber === today.getDate() && 
-                        thisMonth === (today.getMonth() + 1) && 
-                        thisYear === today.getFullYear()) {
-                        cell.classList.add('is-today');
-                    }
+                mc.on("swipeleft swiperight swipeup swipedown", function (ev) {
+                        if (isLocked && (ev.type == "swipeup" || ev.type == "swipedown")) return;
+
+                        if (ev.type == "swipeleft") mesMas();
+                        if (ev.type == "swiperight") mesMenos();
+                        if (ev.type == "swipedown") turnoMenos(); // Solo cambia visual
+                        if (ev.type == "swipeup") turnoMas();     // Solo cambia visual
+                });
+
+                // Listeners Mes/Año
+                document.getElementById('monthSelect').addEventListener('change', function () {
+                        thisMonth = parseInt(this.value);
+                        selectedDate = new Date(thisYear, thisMonth - 1, 1);
+                        CanvasCalendar.refreshCalendar();
+                });
+
+                document.getElementById('yearSelect').addEventListener('change', function () {
+                        thisYear = parseInt(this.value);
+                        selectedDate = new Date(thisYear, thisMonth - 1, 1);
+                        CanvasCalendar.refreshCalendar();
+                });
+
+                // Listener Turno (Footer) - ESTE ES EL MASTER
+                var elTurno = document.getElementById('turnoDef');
+                elTurno.addEventListener('change', function () {
+                        turnoDefecto = parseInt(this.value); // Actualizamos el defecto
+                        turnoVisual = turnoDefecto;          // Sincronizamos la vista
+                        setCookie('turnoDef', turnoDefecto.toString(), 365);
+                        CanvasCalendar.refreshCalendar();
+                });
+
+                // Listener Candado
+                var lockToggle = document.getElementById('lockToggle');
+                lockToggle.addEventListener('change', function () {
+                        toggleLock(this.checked);
+                });
+
+                // Carga inicial
+                checkCookie(); // Carga turnoDefecto
+                turnoVisual = turnoDefecto; // Al iniciar, vemos el defecto
+
+                checkLockCookie(); // Carga bloqueo
+
+                elTurno.value = turnoDefecto.toString();
+
+                this.refreshCalendar();
+        },
+
+        refreshCalendar: function () {
+                var textoTurno = ["Turno A", "Turno B", "Turno C", "Turno D", "Turno E", "Turno F"];
+
+                // Actualizar selects cabecera
+                document.getElementById('monthSelect').value = thisMonth;
+                document.getElementById('yearSelect').value = thisYear;
+
+                // Actualizar Turno Visual (HEADER - GRANDE)
+                var displayDiv = document.getElementById("turno-display");
+                //var statusDiv = document.getElementById("turno-status"); // Nuevo div creado en HTML
+
+                displayDiv.innerText = textoTurno[turnoVisual];
+                document.getElementById("titulo").innerText = "Qadrant " + thisYear;
+
+                // Lógica visual de "Turno Ajeno"
+                if (turnoVisual !== turnoDefecto) {
+                        // Si estoy viendo otro turno
+                        displayDiv.classList.remove('text-danger');
+                        displayDiv.classList.add('text-warning'); // Color naranja/amarillo oscuro
+
+                        // Aviso debajo
+                        // statusDiv.innerHTML = '<span class="badge bg-warning text-dark">Vista Temporal</span>';
+                } else {
+                        // Si es mi turno
+                        displayDiv.classList.remove('text-warning');
+                        displayDiv.classList.add('text-danger');
+
+                        // Limpiar aviso
+                        // statusDiv.innerHTML = '';
                 }
 
-                cell.innerText = dayNumber;
-                grid.appendChild(cell);
-            }
+                // Actualizar Turno Defecto (FOOTER PEQUEÑO)
+                document.getElementById("turnoDef").value = turnoDefecto;
+
+                this.drawCalendarDOM();
+        },
+
+        drawCalendarDOM: function () {
+                var grid = document.getElementById('calendar-grid');
+                grid.classList.remove('fade-in');
+                void grid.offsetWidth;
+                grid.classList.add('fade-in');
+                grid.innerHTML = "";
+
+                var prevMonthLastDate = getLastDayOfMonth(thisMonth - 1, thisYear);
+                var thisMonthLastDate = getLastDayOfMonth(thisMonth, thisYear);
+
+                var firstDayObj = new Date(thisYear, thisMonth - 1, 1);
+                var thisMonthFirstDay = firstDayObj.getDay() - 1;
+                if (thisMonthFirstDay < 0) thisMonthFirstDay = 6;
+
+                var monthDay = 0;
+                var dateOffset = thisMonthFirstDay;
+
+                for (var j = 0; j < 6; j++) {
+                        for (var i = 0; i < 7; i++) {
+                                var cell = document.createElement('div');
+                                cell.className = 'day-cell';
+                                var dayNumber = 0;
+                                var isCurrentMonth = false;
+
+                                if (j === 0 && i < thisMonthFirstDay) {
+                                        dayNumber = prevMonthLastDate - (dateOffset - i) + 1;
+                                        cell.classList.add('other-month');
+                                } else if (monthDay < thisMonthLastDate) {
+                                        monthDay++;
+                                        dayNumber = monthDay;
+                                        isCurrentMonth = true;
+                                } else {
+                                        monthDay++;
+                                        dayNumber = monthDay - thisMonthLastDate;
+                                        cell.classList.add('other-month');
+                                }
+
+                                // PINTAR COLORES: Usamos turnoVisual
+                                if (isCurrentMonth && (thisYear - primerAnio) >= 0 && cuadrante[thisYear - primerAnio]) {
+                                        try {
+                                                var turnoStr = cuadrante[(thisYear - primerAnio)][thisMonth - 1][(dayNumber - 1)];
+                                                if (turnoStr === undefined) turnoStr = "999999";
+                                                turnoStr = turnoStr.toString();
+
+                                                // Usamos turnoVisual aquí
+                                                var turnoInt = parseInt(turnoStr.substring(turnoVisual, turnoVisual + 1));
+
+                                                if (turnoInt >= 1 && turnoInt <= 4) {
+                                                        cell.classList.add('shift-type-' + turnoInt);
+                                                }
+                                        } catch (e) { }
+                                }
+
+                                if (isCurrentMonth) {
+                                        var dateString = thisYear.toString() +
+                                                ((thisMonth < 10) ? "0" + thisMonth : thisMonth) +
+                                                ((dayNumber < 10) ? "0" + dayNumber : dayNumber);
+
+                                        if (i === 6 || festivos.includes(dateString)) {
+                                                cell.classList.add('is-holiday');
+                                        }
+
+                                        var today = new Date();
+                                        if (dayNumber === today.getDate() &&
+                                                thisMonth === (today.getMonth() + 1) &&
+                                                thisYear === today.getFullYear()) {
+                                                cell.classList.add('is-today');
+                                        }
+                                }
+
+                                cell.innerText = dayNumber;
+                                grid.appendChild(cell);
+                        }
+                }
         }
-    }
 };
 
 // --- FUNCIONES DE NAVEGACIÓN ---
 
-window.mesMas = function() {
-    if (selectedDate.getMonth() == 11 && selectedDate.getFullYear() == ultimoAnyo) return;
-    if (selectedDate.getFullYear() > ultimoAnyo) return;
-    selectedDate.setMonth(selectedDate.getMonth() + 1);
-    thisMonth = selectedDate.getMonth() + 1;
-    thisYear = selectedDate.getFullYear();
-    CanvasCalendar.refreshCalendar();
+window.mesMas = function () {
+        if (selectedDate.getMonth() == 11 && selectedDate.getFullYear() == ultimoAnyo) return;
+        if (selectedDate.getFullYear() > ultimoAnyo) return;
+        selectedDate.setMonth(selectedDate.getMonth() + 1);
+        thisMonth = selectedDate.getMonth() + 1;
+        thisYear = selectedDate.getFullYear();
+        CanvasCalendar.refreshCalendar();
 }
 
-window.mesMenos = function() {
-    if (selectedDate.getMonth() == 0 && selectedDate.getFullYear() == primerAnio) return;
-    selectedDate.setMonth(selectedDate.getMonth() - 1);
-    thisMonth = selectedDate.getMonth() + 1;
-    thisYear = selectedDate.getFullYear();
-    CanvasCalendar.refreshCalendar();
+window.mesMenos = function () {
+        if (selectedDate.getMonth() == 0 && selectedDate.getFullYear() == primerAnio) return;
+        selectedDate.setMonth(selectedDate.getMonth() - 1);
+        thisMonth = selectedDate.getMonth() + 1;
+        thisYear = selectedDate.getFullYear();
+        CanvasCalendar.refreshCalendar();
 }
 
 // Deslizar hacia ARRIBA: Siguiente turno visual
-window.turnoMas = function() {
-    if(isLocked) return;
-    turnoVisual++;
-    if (turnoVisual == 6) turnoVisual = 0;
-    CanvasCalendar.refreshCalendar();
+window.turnoMas = function () {
+        if (isLocked) return;
+        turnoVisual++;
+        if (turnoVisual == 6) turnoVisual = 0;
+        CanvasCalendar.refreshCalendar();
 }
 
 // Deslizar hacia ABAJO: Anterior turno visual
-window.turnoMenos = function() {
-    if(isLocked) return;
-    turnoVisual--;
-    if (turnoVisual < 0) turnoVisual = 5;
-    CanvasCalendar.refreshCalendar();
+window.turnoMenos = function () {
+        if (isLocked) return;
+        turnoVisual--;
+        if (turnoVisual < 0) turnoVisual = 5;
+        CanvasCalendar.refreshCalendar();
 }
 
 // --- UTILIDADES ---
 
 function getLastDayOfMonth(month, year) {
-    return new Date(year, month, 0).getDate();
+        return new Date(year, month, 0).getDate();
 }
 
 function toggleLock(locked) {
-    isLocked = locked;
-    var turnoSelect = document.getElementById('turnoDef');
-    var iconUnlock = document.getElementById('iconUnlock');
-    var iconLock = document.getElementById('iconLock');
+        isLocked = locked;
+        var turnoSelect = document.getElementById('turnoDef');
+        var iconUnlock = document.getElementById('iconUnlock');
+        var iconLock = document.getElementById('iconLock');
 
-    if (isLocked) {
-        // AL BLOQUEAR: Forzamos la vista al turno por defecto
-        turnoVisual = turnoDefecto;
-        CanvasCalendar.refreshCalendar(); // Refrescamos para asegurar que se ve el defecto
+        if (isLocked) {
+                // AL BLOQUEAR: Forzamos la vista al turno por defecto
+                turnoVisual = turnoDefecto;
+                CanvasCalendar.refreshCalendar(); // Refrescamos para asegurar que se ve el defecto
 
-        turnoSelect.disabled = true;
-        document.body.classList.add('locked-mode');
-        if(iconUnlock) iconUnlock.style.display = 'none';
-        if(iconLock) iconLock.style.display = 'inline';
-    } else {
-        turnoSelect.disabled = false;
-        document.body.classList.remove('locked-mode');
-        if(iconUnlock) iconUnlock.style.display = 'inline';
-        if(iconLock) iconLock.style.display = 'none';
-    }
-    setCookie("isLocked", isLocked.toString(), 365);
+                turnoSelect.disabled = true;
+                document.body.classList.add('locked-mode');
+                if (iconUnlock) iconUnlock.style.display = 'none';
+                if (iconLock) iconLock.style.display = 'inline';
+        } else {
+                turnoSelect.disabled = false;
+                document.body.classList.remove('locked-mode');
+                if (iconUnlock) iconUnlock.style.display = 'inline';
+                if (iconLock) iconLock.style.display = 'none';
+        }
+        setCookie("isLocked", isLocked.toString(), 365);
 }
 
 function checkLockCookie() {
-    var lockedCookie = getCookie("isLocked");
-    var lockToggle = document.getElementById('lockToggle');
-    if (lockedCookie === "true") {
-        if(lockToggle) lockToggle.checked = true;
-        toggleLock(true);
-    } else {
-        if(lockToggle) lockToggle.checked = false;
-        toggleLock(false);
-    }
+        var lockedCookie = getCookie("isLocked");
+        var lockToggle = document.getElementById('lockToggle');
+        if (lockedCookie === "true") {
+                if (lockToggle) lockToggle.checked = true;
+                toggleLock(true);
+        } else {
+                if (lockToggle) lockToggle.checked = false;
+                toggleLock(false);
+        }
 }
 
 function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    var expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;SameSite=Lax";
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;SameSite=Lax";
 }
 
 function getCookie(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i].trim();
-        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-    }
-    return "";
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+                var c = ca[i].trim();
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+        }
+        return "";
 }
 
 function checkCookie() {
-    var user = getCookie("turnoDef");
-    if (user != "") {
-        turnoDefecto = parseInt(user); // Cargar en defecto
-    } else {
-        setCookie("turnoDef", turnoDefecto.toString(), 365);
-    }
+        var user = getCookie("turnoDef");
+        if (user != "") {
+                turnoDefecto = parseInt(user); // Cargar en defecto
+        } else {
+                setCookie("turnoDef", turnoDefecto.toString(), 365);
+        }
 }

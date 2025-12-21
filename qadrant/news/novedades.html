@@ -1,211 +1,309 @@
-<!doctype html>
-<html lang="en">
-
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Histórico de Cambios</title>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 
-    <title>Historico de Cambios </title>
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --primary-color: #00838F;
+            --accent-color: #A4AE53;
+            --bg-color: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: #343a40;
+            padding-top: 20px;
+            padding-bottom: 40px;
+        }
+
+        .main-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-weight: 800;
+            color: #212529;
+            margin-bottom: 24px;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        /* Estilo personalizado del Acordeón */
+        .accordion-item {
+            border: none;
+            border-radius: 16px !important;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            overflow: hidden;
+            background: white;
+        }
+
+        .accordion-button {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #495057;
+            background-color: white;
+            padding: 16px 20px;
+            box-shadow: none !important;
+        }
+
+        .accordion-button:not(.collapsed) {
+            color: var(--primary-color);
+            background-color: #e0f7fa; /* Fondo suave al expandir */
+        }
+
+        .accordion-button:focus {
+            border-color: rgba(0,131,143,0.1);
+            box-shadow: 0 0 0 0.25rem rgba(0,131,143,0.15);
+        }
+
+        .accordion-body {
+            padding: 20px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        /* Estilos para listas y elementos dentro del body */
+        .accordion-body ul {
+            padding-left: 1rem;
+            margin-bottom: 0;
+        }
+        
+        .accordion-body li {
+            margin-bottom: 8px;
+        }
+
+        .accordion-body strong {
+            color: #333;
+        }
+
+        /* Badges e Iconos */
+        .badge-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
+            background-color: #f1f3f5;
+            color: #495057;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 2px 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 0 2px;
+        }
+        
+        .badge-icon i {
+            margin-right: 4px;
+            font-size: 1rem;
+            color: var(--primary-color);
+        }
+
+        .img-fluid {
+            border-radius: 8px;
+            margin-top: 8px;
+            border: 1px solid #eee;
+        }
+
+        /* Versión actual destacada */
+        .latest-version .accordion-button {
+            border-left: 4px solid var(--accent-color);
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container py-2">
-        <h2>Histórico de Cambios</h2>
+    <div class="container main-container px-3">
+        <h2><i class="bi bi-clock-history text-muted me-2"></i>Historial de Cambios</h2>
 
-        <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
+        <div class="accordion" id="accordionHistory">
+
+            <!-- Versión 2026 -->
+            <div class="accordion-item latest-version">
                 <h2 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#20251" aria-expanded="true" aria-controls="20251">
-                        <strong>2.0.25.1</strong>
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#v2026" aria-expanded="true">
+                        <span class="badge bg-success me-2">Nuevo</span> 2.0.26.1
                     </button>
                 </h2>
-                <div id="20251" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div id="v2026" class="accordion-collapse collapse show" data-bs-parent="#accordionHistory">
                     <div class="accordion-body">
-                        <p>Actualización con el calendario 2025, que ya está disponible en la <strong>Play Store</strong>. Recordar que aunque se extrema el cuidado a la hora de volcar
-                            las jornadas a la App,
-                            <strong>la jornada la establece el calendario firmado por RE y RS.</strong></p>
+                        <p>🎉 <strong>¡Calendario 2026 disponible!</strong></p>
+                        <p>Actualización con el calendario para el año 2026. Recuerda que aunque se extrema el cuidado al volcar los datos: <strong>la jornada oficial es la que establece el calendario firmado por RE y RS.</strong></p>
                     </div>
                 </div>
             </div>
 
-            
+            <!-- Versión 2025 -->
             <div class="accordion-item">
                 <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#2422" aria-expanded="true" aria-controls="2421">
-                        <strong>2.0.24.2</strong>
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#v2025">
+                        2.0.25.1
                     </button>
                 </h2>
-                <div id="2422" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div id="v2025" class="accordion-collapse collapse" data-bs-parent="#accordionHistory">
                     <div class="accordion-body">
-                        <ul>
-                            <li>Se ha solucionado el inconveniente relacionado con las fechas en el Widget de
-                                escritorio.</li>
-                            <li>Se han incorporado marcas tanto en los últimos días del mes precedente como en los
-                                primeros del mes siguiente, garantizando la visualización de 6 semanas constantemente.<img src="Marcas.png" class="img-fluid" alt="Marcas pasadas y futuras">
-                            </li>
-                            <li>El cambio de color se refleja ahora adecuadamente en el diálogo de configuración.</li>
-                            <li>Se introdujo una nueva funcionalidad para obtener el enlace de la versión para iPhone.<img src="Enlace-iPhone.png" class="img-fluid" alt="Enlace iPhone">
-                            </li>
-                            <li>Se ha solucionado el problema que solo permitía marcar vacaciones cuando no estaba instalado Google Calendar.</li>
-                        </ul>
+                        <p>Actualización con el calendario 2025. Disponible en Play Store.</p>
                     </div>
                 </div>
             </div>
-            <!-- Añade aquí la versión 2.0.24.1 -->
+
+            <!-- Versión 2.0.24.2 -->
             <div class="accordion-item">
                 <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#2421" aria-expanded="false" aria-controls="2421">
-                        <strong>2.0.24.1</strong>
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#v2422">
+                        2.0.24.2
                     </button>
                 </h2>
-                <div id="2421" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div id="v2422" class="accordion-collapse collapse" data-bs-parent="#accordionHistory">
                     <div class="accordion-body">
-                        <ul>
-                            <li>Actualización con el calendario 2024. Recordar que aunque se extrema el cuidado a la
-                                hora de volcar
-                                las jornadas a la App,
-                                <strong>la jornada la establece el calendario firmado por RE y RS.</strong>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle-fill text-success me-2"></i>Solucionado problema de fechas en el Widget.</li>
+                            <li><i class="bi bi-calendar-range text-primary me-2"></i><strong>Mejora visual:</strong> Ahora se ven marcas de los últimos días del mes anterior y primeros del siguiente (6 semanas visibles).
+                                <img src="Marcas.png" class="img-fluid mt-2 mb-3" alt="Marcas visuales">
                             </li>
-                            <li>Se corrige menú de Opciones para tamaños de texto grandes.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#232311" aria-expanded="false" aria-controls="232311">
-                        <strong>2.0.23.11</strong>
-                    </button>
-                </h2>
-                <div id="232311" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <ul>
-                            <li>Ahora se muestra correctamente los cambios (Vacaciones, cambios de turno, etc), en los
-                                días que no
-                                pertenecen al mes actual (Final mes anterior y principio de posterior).</li>
-                            <li>Corregido problema de visualización en otros turnos cuando se hacían cambios.</li>
+                            <li><i class="bi bi-palette-fill text-primary me-2"></i>Corrección en el diálogo de configuración de colores.</li>
+                            <li><i class="bi bi-apple text-dark me-2"></i>Nuevo enlace directo a la versión iPhone.
+                                <img src="Enlace-iPhone.png" class="img-fluid mt-2" alt="Enlace iPhone">
+                            </li>
+                            <li><i class="bi bi-bug-fill text-danger me-2"></i>Corregido fallo al marcar vacaciones sin Google Calendar instalado.</li>
                         </ul>
                     </div>
                 </div>
             </div>
 
+            <!-- Versión 2.0.24.1 -->
             <div class="accordion-item">
                 <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#2310"
-                        aria-expanded="false" aria-controls="2310">
-                        <strong>2.0.23.10</strong>
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#v2421">
+                        2.0.24.1
                     </button>
                 </h2>
-                <div id="2310" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div id="v2421" class="accordion-collapse collapse" data-bs-parent="#accordionHistory">
                     <div class="accordion-body">
                         <ul>
-                            <li>Se añade listado de novedades al menú de <button type="button"
-                                    class="btn btn-outline-secondary">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-gear-fill" viewBox="0 0 16 16">
-                                        <path
-                                            d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
-                                    </svg> Opciones </button></li>
-                            <li>Se mueve "Seleccionar calendarios" del menú emergente al de opciones</li>
-                            <li>Pequeñas correcciones</li>
+                            <li>Carga del calendario 2024.</li>
+                            <li>Corrección visual en el menú de Opciones para fuentes grandes.</li>
                         </ul>
                     </div>
                 </div>
             </div>
+
+            <!-- Versión 2.0.23.11 -->
             <div class="accordion-item">
                 <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#2309b3" aria-expanded="false" aria-controls="2309b3">
-                        <strong>2.0.23.9b3</strong>
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#v2311">
+                        2.0.23.11
                     </button>
                 </h2>
-                <div id="2309b3" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div id="v2311" class="accordion-collapse collapse" data-bs-parent="#accordionHistory">
                     <div class="accordion-body">
                         <ul>
-                            <li>Se añade la hora a los enventos. <br>
+                            <li>Visualización correcta de cambios (Vacaciones, turnos...) en días "grises" (mes anterior/posterior).</li>
+                            <li>Corregido error visual al cambiar turnos.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Versión 2.0.23.10 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#v2310">
+                        2.0.23.10
+                    </button>
+                </h2>
+                <div id="v2310" class="accordion-collapse collapse" data-bs-parent="#accordionHistory">
+                    <div class="accordion-body">
+                        <ul>
+                            <li>Se añade listado de novedades al menú: 
+                                <span class="badge-icon"><i class="bi bi-gear-fill"></i> Opciones</span>
                             </li>
-                            <li>Se solucionan problemas de actualizacición de Widget.</li>
+                            <li>La opción "Seleccionar calendarios" se ha movido al menú de opciones para limpiar la interfaz.</li>
                         </ul>
                     </div>
                 </div>
             </div>
+
+            <!-- Versión 2.0.23.9b3 -->
             <div class="accordion-item">
                 <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#2309b2" aria-expanded="false" aria-controls="2309b2">
-                        <strong>2.0.23.9b2</strong>
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#v2309b3">
+                        2.0.23.9b3
                     </button>
                 </h2>
-                <div id="2309b2" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div id="v2309b3" class="accordion-collapse collapse" data-bs-parent="#accordionHistory">
                     <div class="accordion-body">
                         <ul>
-                            <li>Se añade funcionalidad para guardar en la nube.</li>
-                            <li>Se añade autentificación con cuenta Google.</li>
+                            <li>Se muestra la <strong>hora</strong> en los eventos del calendario.</li>
+                            <li>Mejoras en la actualización automática del Widget.</li>
                         </ul>
                     </div>
                 </div>
             </div>
+
+            <!-- Versión 2.0.23.9b2 -->
             <div class="accordion-item">
                 <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#2309b1" aria-expanded="false" aria-controls="2309b1">
-                        <strong>2.0.23.9b1</strong>
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#v2309b2">
+                        2.0.23.9b2
                     </button>
                 </h2>
-                <div id="2309b1" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div id="v2309b2" class="accordion-collapse collapse" data-bs-parent="#accordionHistory">
                     <div class="accordion-body">
                         <ul>
-                            <li>Se añade marcas para cambios de turno <button type="button"
-                                    class="btn btn-outline-secondary btn-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
-                                        width="24px" fill="#000000">
-                                        <path d="M.01 0h24v24h-24V0z" fill="none" />
-                                        <path
-                                            d="M12 4V2.21c0-.45-.54-.67-.85-.35l-2.8 2.79c-.2.2-.2.51 0 .71l2.79 2.79c.32.31.86.09.86-.36V6c3.31 0 6 2.69 6 6 0 .79-.15 1.56-.44 2.25-.15.36-.04.77.23 1.04.51.51 1.37.33 1.64-.34.37-.91.57-1.91.57-2.95 0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-.79.15-1.56.44-2.25.15-.36.04-.77-.23-1.04-.51-.51-1.37-.33-1.64.34C4.2 9.96 4 10.96 4 12c0 4.42 3.58 8 8 8v1.79c0 .45.54.67.85.35l2.79-2.79c.2-.2.2-.51 0-.71l-2.79-2.79c-.31-.31-.85-.09-.85.36V18z" />
-                                    </svg></button></li>
-                            <li>Se añade marcas para licencias retribuidas <button type="button"
-                                    class="btn btn-outline-secondary btn-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
-                                        width="24px" fill="#000000">
-                                        <path d="M0 0h24v24H0V0z" fill="none" />
-                                        <path
-                                            d="M9.84 16.47l1.91-1.91 1.91 1.91c.29.29.77.29 1.06 0 .29-.29.29-.77 0-1.06l-1.91-1.91 1.91-1.91c.29-.29.29-.77 0-1.06-.29-.29-.77-.29-1.06 0l-1.91 1.91-1.91-1.91c-.29-.29-.77-.29-1.06 0-.29.29-.29.77 0 1.06l1.91 1.91-1.91 1.91c-.29.29-.29.77 0 1.06.29.29.77.29 1.06 0zM19 3h-1V2c0-.55-.45-1-1-1s-1 .45-1 1v1H8V2c0-.55-.45-1-1-1s-1 .45-1 1v1H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 16H6c-.55 0-1-.45-1-1V8h14v10c0 .55-.45 1-1 1z" />
-                                    </svg></button></li>
-                            <li>Se añade marcas para fijar jornada en turnos varios <button type="button"
-                                    class="btn btn-outline-secondary btn-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"
-                                        height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
-                                        <rect fill="none" height="24" width="24" />
-                                        <path
-                                            d="M12,22H5c-1.11,0-2-0.9-2-2L3.01,6c0-1.1,0.88-2,1.99-2h1V3c0-0.55,0.45-1,1-1s1,0.45,1,1v1h8V3c0-0.55,0.45-1,1-1 s1,0.45,1,1v1h1c1.1,0,2,0.9,2,2v6h-2v-2H5v10h7V22z M22.13,16.99l0.71-0.71c0.39-0.39,0.39-1.02,0-1.41l-0.71-0.71 c-0.39-0.39-1.02-0.39-1.41,0l-0.71,0.71L22.13,16.99z M21.42,17.7l-5.01,5.01c-0.18,0.18-0.44,0.29-0.7,0.29H14.5 c-0.28,0-0.5-0.22-0.5-0.5v-1.21c0-0.27,0.11-0.52,0.29-0.71l5.01-5.01L21.42,17.7z" />
-                                    </svg></button></li>
-                            <li>Se añade marcas para horas extras <button type="button"
-                                    class="btn btn-outline-secondary btn-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
-                                        width="24px" fill="#000000">
-                                        <path d="M0 0h24v24H0V0z" fill="none" />
-                                        <path
-                                            d="M21.18 5.01L18.1 2.45c-.42-.35-1.05-.3-1.41.13-.35.42-.29 1.05.13 1.41l3.07 2.56c.42.35 1.05.3 1.41-.13.36-.42.3-1.05-.12-1.41zM4.1 6.55l3.07-2.56c.43-.36.49-.99.13-1.41-.35-.43-.98-.48-1.4-.13L2.82 5.01c-.42.36-.48.99-.12 1.41.35.43.98.48 1.4.13zM12 4c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm3-8h-2v-2c0-.55-.45-1-1-1s-1 .45-1 1v2H9c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1v-2h2c.55 0 1-.45 1-1s-.45-1-1-1z" />
-                                    </svg></button></li>
-                            <li>Se añade posibilidad de filtrar cuentas de eventos (desactivar festivos).</li>
+                            <li><i class="bi bi-cloud-arrow-up-fill text-primary"></i> Copia de seguridad en la nube.</li>
+                            <li><i class="bi bi-google text-danger"></i> Inicio de sesión con Google.</li>
                         </ul>
                     </div>
                 </div>
             </div>
+
+            <!-- Versión 2.0.23.9b1 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#v2309b1">
+                        2.0.23.9b1
+                    </button>
+                </h2>
+                <div id="v2309b1" class="accordion-collapse collapse" data-bs-parent="#accordionHistory">
+                    <div class="accordion-body">
+                        <p class="mb-2">Nuevas marcas visuales añadidas:</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="badge-icon" title="Cambio de turno"><i class="bi bi-arrow-left-right"></i> Cambio Turno</span>
+                            <span class="badge-icon" title="Licencia"><i class="bi bi-briefcase-fill"></i> Licencia</span>
+                            <span class="badge-icon" title="Fijar Jornada"><i class="bi bi-pin-map-fill"></i> Fijar</span>
+                            <span class="badge-icon" title="Horas Extra"><i class="bi bi-plus-circle-fill"></i> Horas</span>
+                        </div>
+                        <p class="mt-3 text-muted small">También se añade filtro para cuentas de eventos.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- End Accordion -->
+        
+        <div class="text-center mt-4 mb-3">
+            <small class="text-muted">Qadrant App &copy; 2026</small>
         </div>
-
-
 
     </div>
 
-    <!-- Optional JavaScript; choose one of the two! -->
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
