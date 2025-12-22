@@ -691,7 +691,7 @@ window.CanvasCalendar = {
                 //var statusDiv = document.getElementById("turno-status"); // Nuevo div creado en HTML
 
                 displayDiv.innerText = textoTurno[turnoVisual];
-                document.getElementById("titulo").innerText = "Qadrant " + thisYear;
+                document.getElementById("titulo").innerText = "Qadrant " + ultimoAnyo;
 
                 // Lógica visual de "Turno Ajeno"
                 if (turnoVisual !== turnoDefecto) {
