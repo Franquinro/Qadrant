@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TimerRendimiento - Control de Tomas de Rendimiento</title>
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       TimerRendimiento - Design System & Styles (Single File Bundle)
+       ========================================================================== */
+
+    :root {
+      --bg-dark: #080c14;
+      --bg-card: rgba(18, 25, 41, 0.75);
+      --bg-card-hover: rgba(26, 36, 59, 0.85);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(16, 185, 129, 0.3);
+
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+
+      --accent-emerald: #10b981;
+      --accent-cyan: #06b6d4;
+      --accent-amber: #f59e0b;
+      --accent-orange: #ff7a00;
+      --accent-red: #ef4444;
+
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+
+      --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+      --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-normal: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(6, 182, 212, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.9) 0%, #080c14 100%);
+      background-attachment: fixed;
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color var(--transition-normal);
+    }
+
+    .app-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      min-height: 100vh;
+      transition: all var(--transition-normal);
+    }
+
+    /* Header */
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 28px;
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      transition: all var(--transition-normal);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--accent-emerald), var(--accent-cyan));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+    }
+
+    .brand-icon svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .brand h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #ffffff 40%, #a5f3fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .clock-badge {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 8px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .clock-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .clock-value {
+      font-family: var(--font-mono);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+    }
+
+    /* Card Styling */
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+      transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+    }
+
+    .card-header {
+      margin-bottom: 20px;
+    }
+
+    .card-header h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-primary);
+    }
+
+    .card-header.center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-header.flex-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Main Grid Layout */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      transition: all var(--transition-normal);
+    }
+
+    .log-card {
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 960px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Form & Inputs */
+    .config-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .radio-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .radio-card:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .radio-card input[type="radio"] {
+      margin-top: 4px;
+      accent-color: var(--accent-emerald);
+    }
+
+    .radio-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .radio-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .radio-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .input-text, .select-input {
+      width: 100%;
+      padding: 10px 14px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color var(--transition-fast);
+    }
+
+    .input-text:focus, .select-input:focus {
+      border-color: var(--accent-emerald);
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+    }
+
+    .checkbox-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .checkbox-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .checkbox-badge input[type="checkbox"] {
+      accent-color: var(--accent-emerald);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: var(--radius-md);
+      font-family: var(--font-sans);
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all var(--transition-fast);
+    }
+
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      filter: grayscale(1);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: linear-gradient(135deg, #34d399, #10b981);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--border-color);
+      color: var(--text-primary);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+    }
+
+    .btn-danger:hover:not(:disabled) {
+      background: rgba(239, 68, 68, 0.25);
+      color: #ffffff;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: var(--border-color);
+      color: var(--text-secondary);
+    }
+
+    .btn-outline:hover:not(:disabled) {
+      border-color: rgba(255, 255, 255, 0.25);
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .btn-audio-unlock {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(16, 185, 129, 0.2));
+      border: 1px solid rgba(6, 182, 212, 0.4);
+      color: #67e8f9;
+    }
+
+    .btn-audio-unlock.unlocked {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: #6ee7b7;
+    }
+
+    .btn-expand-mode {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(239, 68, 68, 0.2));
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fcd34d;
+    }
+
+    .btn-expand-mode:hover {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.3), rgba(239, 68, 68, 0.3));
+      transform: translateY(-1px);
+    }
+
+    .btn-large {
+      padding: 12px 24px;
+      font-size: 1rem;
+    }
+
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .form-actions {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    /* Audio Testing Box */
+    .audio-testing-section {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .audio-testing-section h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+      color: var(--text-secondary);
+    }
+
+    .audio-controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .volume-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .volume-control input[type="range"] {
+      accent-color: var(--accent-emerald);
+      cursor: pointer;
+      width: 100px;
+    }
+
+    #volume-value {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      min-width: 35px;
+    }
+
+    .test-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .sim-mode-box {
+      margin-top: 16px;
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px dashed rgba(245, 158, 11, 0.3);
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .sim-badge {
+      border: none;
+      padding: 0;
+      background: transparent;
+      color: #fcd34d;
+      font-weight: 600;
+    }
+
+    .sim-hint {
+      font-size: 0.76rem;
+      color: #fbbf24;
+      opacity: 0.8;
+    }
+
+    /* Status Pill */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      transition: all var(--transition-normal);
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .status-ready {
+      background: rgba(148, 163, 184, 0.15);
+      color: var(--text-secondary);
+    }
+    .status-ready .pill-dot { background: var(--text-muted); }
+
+    .status-running {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #6ee7b7;
+    }
+    .status-running .pill-dot { background: var(--accent-emerald); box-shadow: 0 0 8px var(--accent-emerald); }
+
+    .status-alert-3m {
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fde047;
+    }
+    .status-alert-3m .pill-dot { background: var(--accent-amber); box-shadow: 0 0 10px var(--accent-amber); }
+
+    .status-alert-1m {
+      background: rgba(255, 122, 0, 0.25);
+      border: 1px solid rgba(255, 122, 0, 0.5);
+      color: #ffedd5;
+    }
+    .status-alert-1m .pill-dot { background: var(--accent-orange); box-shadow: 0 0 12px var(--accent-orange); }
+
+    .status-alert-30s {
+      background: rgba(239, 68, 68, 0.3);
+      border: 1px solid rgba(239, 68, 68, 0.6);
+      color: #fca5a5;
+      animation: pulse-red 1s infinite alternate;
+    }
+    .status-alert-30s .pill-dot { background: var(--accent-red); box-shadow: 0 0 14px var(--accent-red); }
+
+    .status-completed {
+      background: linear-gradient(135deg, #10b981, #06b6d4);
+      color: #000;
+      font-weight: 800;
+    }
+    .status-completed .pill-dot { background: #000; }
+
+    /* Rosco SVG Component */
+    .rosco-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .rosco-container {
+      position: relative;
+      width: 320px;
+      height: 320px;
+      margin: 20px 0;
+      transition: all var(--transition-normal);
+    }
+
+    .rosco-svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+
+    .rosco-track {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.05);
+      stroke-width: 16;
+    }
+
+    .rosco-progress {
+      fill: none;
+      stroke-width: 18;
+      stroke-linecap: round;
+      stroke-dasharray: 753.98;
+      stroke-dashoffset: 0;
+      transition: stroke-dashoffset 0.3s linear, stroke 0.5s ease;
+    }
+
+    .rosco-progress.phase-normal {
+      stroke: url(#gradient-normal);
+      filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.5));
+    }
+
+    .rosco-progress.phase-3m {
+      stroke: url(#gradient-alert-3m);
+      filter: drop-shadow(0 0 16px rgba(245, 158, 11, 0.6));
+    }
+
+    .rosco-progress.phase-1m {
+      stroke: url(#gradient-alert-1m);
+      filter: drop-shadow(0 0 20px rgba(255, 122, 0, 0.7));
+    }
+
+    .rosco-progress.phase-30s {
+      stroke: url(#gradient-alert-30s);
+      filter: drop-shadow(0 0 24px rgba(239, 68, 68, 0.9));
+      animation: stroke-pulse 0.8s infinite alternate ease-in-out;
+    }
+
+    .rosco-center-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 80%;
+    }
+
+    .countdown-display {
+      font-family: var(--font-mono);
+      font-size: 3.4rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text-primary);
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+      line-height: 1;
+      transition: font-size var(--transition-normal);
+    }
+
+    .countdown-unit {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-top: 4px;
+      margin-bottom: 12px;
+    }
+
+    .target-time-box {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-color);
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .target-label {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+    }
+
+    .target-value {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-emerald);
+    }
+
+    .milestones-bar {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .milestone-chip {
+      padding: 8px 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--transition-fast);
+    }
+
+    .milestone-chip.active-3m {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: var(--accent-amber);
+      color: #fde047;
+      font-weight: 600;
+    }
+
+    .milestone-chip.active-1m {
+      background: rgba(255, 122, 0, 0.2);
+      border-color: var(--accent-orange);
+      color: #ffedd5;
+      font-weight: 600;
+    }
+
+    .milestone-chip.active-30s {
+      background: rgba(239, 68, 68, 0.25);
+      border-color: var(--accent-red);
+      color: #fca5a5;
+      font-weight: 700;
+      animation: pulse-red 0.8s infinite alternate;
+    }
+
+    /* History Log Table */
+    .log-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge {
+      font-size: 0.78rem;
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-full);
+      color: var(--text-secondary);
+    }
+
+    .log-table-container {
+      overflow-x: auto;
+      max-height: 250px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+    }
+
+    .log-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    .log-table th {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 12px 16px;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    .log-table td {
+      padding: 12px 16px;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-primary);
+    }
+
+    .log-table tbody tr:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .text-center { text-align: center; }
+    .empty-msg { color: var(--text-muted); padding: 32px; font-style: italic; }
+    .text-danger { color: #fca5a5; }
+
+    /* ==========================================================================
+       MODO ROSCO AMPLIADO (EXPANDED ROSCO MODE)
+       ========================================================================== */
+    body.mode-expanded .config-card,
+    body.mode-expanded .log-card,
+    body.mode-expanded .app-footer,
+    body.mode-expanded .subtitle,
+    body.mode-expanded .btn-expand-mode {
+      display: none !important;
+    }
+
+    body.mode-expanded .app-header {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 10px 16px;
+    }
+
+    body.mode-expanded .app-container {
+      max-width: 100vw;
+      min-height: 100vh;
+      padding: 16px;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    body.mode-expanded .main-grid {
+      grid-template-columns: 1fr;
+      width: 100%;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    body.mode-expanded .rosco-card {
+      padding: 40px 24px;
+      background: rgba(18, 25, 41, 0.85);
+      border-radius: 28px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+
+    body.mode-expanded .rosco-container {
+      width: min(520px, 85vw);
+      height: min(520px, 85vw);
+      margin: 30px 0;
+    }
+
+    body.mode-expanded .countdown-display {
+      font-size: clamp(4rem, 12vw, 6.8rem);
+    }
+
+    body.mode-expanded .countdown-unit {
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+
+    body.mode-expanded .target-time-box {
+      padding: 8px 20px;
+    }
+
+    body.mode-expanded .target-label {
+      font-size: 0.9rem;
+    }
+
+    body.mode-expanded .target-value {
+      font-size: 1.1rem;
+    }
+
+    body.mode-expanded .status-pill {
+      font-size: 1.1rem;
+      padding: 10px 24px;
+    }
+
+    body.mode-expanded .milestones-bar {
+      gap: 18px;
+    }
+
+    body.mode-expanded .milestone-chip {
+      font-size: 1rem;
+      padding: 10px 20px;
+      border-radius: var(--radius-lg);
+    }
+
+    /* Floating Exit Button for Expanded Mode */
+    .btn-exit-expanded {
+      display: none;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 999;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.5);
+      color: #fca5a5;
+      padding: 10px 20px;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+    }
+
+    body.mode-expanded .btn-exit-expanded {
+      display: inline-flex;
+    }
+
+    .btn-exit-expanded:hover {
+      background: rgba(239, 68, 68, 0.4);
+      color: #ffffff;
+      transform: scale(1.05);
+    }
+
+    /* Animations */
+    @keyframes pulse-red {
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+      100% { box-shadow: 0 0 20px 4px rgba(239, 68, 68, 0.8); }
+    }
+
+    @keyframes stroke-pulse {
+      0% { opacity: 0.75; }
+      100% { opacity: 1; }
+    }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <div>
+          <h1>TimerRendimiento</h1>
+          <p class="subtitle">Control y avisos de tomas periódicas cada 15 minutos</p>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="clock-badge">
+          <span class="clock-label">Hora Actual</span>
+          <span id="current-clock" class="clock-value">00:00:00</span>
+        </div>
+        <button id="btn-toggle-expand" class="btn btn-expand-mode">
+          <span class="btn-icon">🖥️</span> Modo Ampliado
+        </button>
+        <button id="btn-enable-audio" class="btn btn-audio-unlock">
+          <span class="btn-icon">🔊</span>
+          <span id="audio-status-text">Activar Audio</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Floating Exit Expanded Button -->
+    <button id="btn-exit-expanded" class="btn btn-exit-expanded">
+      <span class="btn-icon">✕</span> Salir de Modo Ampliado
+    </button>
+
+    <!-- Content Grid -->
+    <main class="main-grid">
+      <!-- Left / Top Panel: Configuration -->
+      <section class="card config-card">
+        <div class="card-header">
+          <h2><span class="icon">⚙️</span> Configuración de Toma</h2>
+        </div>
+
+        <form id="config-form" class="config-form">
+          <!-- Start Mode Selection -->
+          <div class="form-group">
+            <label class="form-label">Modo de inicio de primera toma:</label>
+            <div class="radio-group">
+              <label class="radio-card">
+                <input type="radio" name="startMode" value="quarter" checked>
+                <div class="radio-content">
+                  <span class="radio-title">Sincronizar a cuartos de hora</span>
+                  <span class="radio-desc">Alinea automáticamente a :00, :15, :30 o :45 min</span>
+                </div>
+              </label>
+
+              <label class="radio-card">
+                <input type="radio" name="startMode" value="custom">
+                <div class="radio-content">
+                  <span class="radio-title">Hora específica de 1ª toma</span>
+                  <span class="radio-desc">Define la hora exacta para comenzar</span>
+                </div>
+              </label>
+
+              <label class="radio-card">
+                <input type="radio" name="startMode" value="now">
+                <div class="radio-content">
+                  <span class="radio-title">Iniciar inmediatamente</span>
+                  <span class="radio-desc">Cuenta atrás completa desde este instante</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Custom Time Input -->
+          <div id="custom-time-container" class="form-group hidden">
+            <label for="input-first-time" class="form-label">Hora de la primera toma:</label>
+            <input type="time" id="input-first-time" class="input-text" step="1">
+          </div>
+
+          <!-- Interval Duration -->
+          <div class="form-group">
+            <label for="select-interval" class="form-label">Intervalo de toma:</label>
+            <select id="select-interval" class="select-input">
+              <option value="15" selected>15 Minutos (Estándar)</option>
+              <option value="10">10 Minutos</option>
+              <option value="5">5 Minutos</option>
+              <option value="30">30 Minutos</option>
+              <option value="60">60 Minutos</option>
+            </select>
+          </div>
+
+          <!-- Pre-Alerts Toggles -->
+          <div class="form-group">
+            <label class="form-label">Preavisos sonoros activos:</label>
+            <div class="checkbox-grid">
+              <label class="checkbox-badge">
+                <input type="checkbox" id="chk-alert-3m" checked>
+                <span>-3 Minutos</span>
+              </label>
+              <label class="checkbox-badge">
+                <input type="checkbox" id="chk-alert-1m" checked>
+                <span>-1 Minuto</span>
+              </label>
+              <label class="checkbox-badge">
+                <input type="checkbox" id="chk-alert-30s" checked>
+                <span>-30 Segundos</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Main Controls -->
+          <div class="form-actions">
+            <button type="submit" id="btn-start" class="btn btn-primary btn-large">
+              <span class="btn-icon">▶</span> Iniciar Contador
+            </button>
+            <button type="button" id="btn-pause" class="btn btn-secondary btn-large" disabled>
+              <span class="btn-icon">⏸</span> Pausar
+            </button>
+            <button type="button" id="btn-reset" class="btn btn-danger btn-large" disabled>
+              <span class="btn-icon">🔄</span> Reiniciar
+            </button>
+          </div>
+        </form>
+
+        <!-- Audio Testing & Controls -->
+        <div class="audio-testing-section">
+          <h3><span class="icon">🔊</span> Ajustes y Pruebas de Audio</h3>
+          <div class="audio-controls-row">
+            <div class="volume-control">
+              <span class="volume-icon" id="volume-icon">🔊</span>
+              <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.8">
+              <span id="volume-value">80%</span>
+            </div>
+            <div class="test-buttons">
+              <button type="button" id="btn-test-prealert" class="btn btn-outline btn-sm">
+                🎵 Probar Preaviso
+              </button>
+              <button type="button" id="btn-test-final" class="btn btn-outline btn-sm">
+                🔔 Probar Alarma 15m
+              </button>
+            </div>
+          </div>
+
+          <!-- Simulation / Fast Forward Mode for testing -->
+          <div class="sim-mode-box">
+            <label class="checkbox-badge sim-badge">
+              <input type="checkbox" id="chk-sim-mode">
+              <span>⚡ Modo Prueba Acelerado (x10)</span>
+            </label>
+            <span class="sim-hint">Permite probar las alarmas en ~90 segundos reales sin esperar 15 min.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Panel: The Rosco / Gauge -->
+      <section class="card rosco-card">
+        <div class="card-header center">
+          <h2>Estado de la Toma</h2>
+          <div id="status-pill" class="status-pill status-ready">
+            <span class="pill-dot"></span>
+            <span id="status-text">Listo para iniciar</span>
+          </div>
+        </div>
+
+        <div class="rosco-container">
+          <svg class="rosco-svg" viewBox="0 0 300 300">
+            <defs>
+              <linearGradient id="gradient-normal" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#10b981" />
+                <stop offset="100%" stop-color="#06b6d4" />
+              </linearGradient>
+              <linearGradient id="gradient-alert-3m" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#f59e0b" />
+                <stop offset="100%" stop-color="#d97706" />
+              </linearGradient>
+              <linearGradient id="gradient-alert-1m" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ff7a00" />
+                <stop offset="100%" stop-color="#ea580c" />
+              </linearGradient>
+              <linearGradient id="gradient-alert-30s" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ef4444" />
+                <stop offset="100%" stop-color="#b91c1c" />
+              </linearGradient>
+
+              <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="6" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+              </filter>
+            </defs>
+
+            <!-- Background track circle -->
+            <circle class="rosco-track" cx="150" cy="150" r="120" />
+            <!-- Progress circle -->
+            <circle id="rosco-progress" class="rosco-progress phase-normal" cx="150" cy="150" r="120" />
+          </svg>
+
+          <!-- Inside Rosco Info -->
+          <div class="rosco-center-content">
+            <div id="countdown-display" class="countdown-display">15:00</div>
+            <div class="countdown-unit">tiempo restante</div>
+            <div class="target-time-box">
+              <span class="target-label">Próxima toma a las:</span>
+              <span id="target-clock-value" class="target-value">--:--:--</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Warning Stage Visual Indicators -->
+        <div class="milestones-bar">
+          <div id="milestone-3m" class="milestone-chip">
+            <span class="chip-icon">⏳</span> -3 min
+          </div>
+          <div id="milestone-1m" class="milestone-chip">
+            <span class="chip-icon">⚠️</span> -1 min
+          </div>
+          <div id="milestone-30s" class="milestone-chip">
+            <span class="chip-icon">🚨</span> -30s
+          </div>
+        </div>
+      </section>
+
+      <!-- Bottom Panel: History & Take Log -->
+      <section class="card log-card">
+        <div class="card-header flex-between">
+          <h2><span class="icon">📋</span> Historial de Tomas Realizadas</h2>
+          <div class="log-actions">
+            <span id="take-count-badge" class="badge">0 tomas registradas</span>
+            <button id="btn-manual-take" class="btn btn-outline btn-sm">
+              ➕ Marcar toma manual
+            </button>
+            <button id="btn-clear-log" class="btn btn-outline btn-sm text-danger">
+              🗑️ Limpiar
+            </button>
+          </div>
+        </div>
+
+        <div class="log-table-container">
+          <table class="log-table">
+            <thead>
+              <tr>
+                <th># Toma</th>
+                <th>Hora Programada</th>
+                <th>Hora Real / Estado</th>
+                <th>Tipo</th>
+              </tr>
+            </thead>
+            <tbody id="log-tbody">
+              <tr id="empty-log-row">
+                <td colspan="4" class="text-center empty-msg">No hay tomas registradas aún. Al completarse cada ciclo de 15 min quedarán aquí registradas.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>TimerRendimiento • Herramienta de alta precisión para control de rendimiento en trabajo</p>
+    </footer>
+  </div>
+
+  <!-- Embedded Single-File JavaScript Logic -->
+  <script>
+    /**
+     * TimerRendimiento - Main Application Logic (Single File Bundle)
+     */
+    const state = {
+      isRunning: false,
+      isPaused: false,
+      intervalMinutes: 15,
+      startMode: 'quarter',
+      customTimeStr: '',
+      
+      targetTimestamp: null,
+      startTimestamp: null,
+      pausedRemainingMs: null,
+      
+      simMode: false,
+      simTimeMultiplier: 10,
+      
+      audioCtx: null,
+      masterGain: null,
+      volume: 0.8,
+      audioUnlocked: false,
+      
+      alertsFired: {
+        '3m': false,
+        '1m': false,
+        '30s': false
+      },
+      
+      takesHistory: [],
+      takeCounter: 0,
+      animFrameId: null
+    };
+
+    const elements = {
+      currentClock: document.getElementById('current-clock'),
+      btnEnableAudio: document.getElementById('btn-enable-audio'),
+      audioStatusText: document.getElementById('audio-status-text'),
+      
+      btnToggleExpand: document.getElementById('btn-toggle-expand'),
+      btnExitExpanded: document.getElementById('btn-exit-expanded'),
+      
+      configForm: document.getElementById('config-form'),
+      customTimeContainer: document.getElementById('custom-time-container'),
+      inputFirstTime: document.getElementById('input-first-time'),
+      selectInterval: document.getElementById('select-interval'),
+      
+      chkAlert3m: document.getElementById('chk-alert-3m'),
+      chkAlert1m: document.getElementById('chk-alert-1m'),
+      chkAlert30s: document.getElementById('chk-alert-30s'),
+      
+      btnStart: document.getElementById('btn-start'),
+      btnPause: document.getElementById('btn-pause'),
+      btnReset: document.getElementById('btn-reset'),
+      
+      volumeSlider: document.getElementById('volume-slider'),
+      volumeValue: document.getElementById('volume-value'),
+      volumeIcon: document.getElementById('volume-icon'),
+      btnTestPrealert: document.getElementById('btn-test-prealert'),
+      btnTestFinal: document.getElementById('btn-test-final'),
+      chkSimMode: document.getElementById('chk-sim-mode'),
+      
+      statusPill: document.getElementById('status-pill'),
+      statusText: document.getElementById('status-text'),
+      
+      roscoProgress: document.getElementById('rosco-progress'),
+      countdownDisplay: document.getElementById('countdown-display'),
+      targetClockValue: document.getElementById('target-clock-value'),
+      
+      milestone3m: document.getElementById('milestone-3m'),
+      milestone1m: document.getElementById('milestone-1m'),
+      milestone30s: document.getElementById('milestone-30s'),
+      
+      takeCountBadge: document.getElementById('take-count-badge'),
+      btnManualTake: document.getElementById('btn-manual-take'),
+      btnClearLog: document.getElementById('btn-clear-log'),
+      logTbody: document.getElementById('log-tbody')
+    };
+
+    const CIRCUMFERENCE = 753.98;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initClock();
+      initEventListeners();
+      setDefaultCustomTime();
+      updateRoscoDisplay(15 * 60, 15 * 60);
+    });
+
+    function initClock() {
+      const update = () => {
+        const now = new Date();
+        elements.currentClock.textContent = now.toLocaleTimeString('es-ES', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        });
+      };
+      update();
+      setInterval(update, 1000);
+    }
+
+    function setDefaultCustomTime() {
+      const now = new Date();
+      const nextQ = getNextQuarterTimestamp(now);
+      const qDate = new Date(nextQ);
+      const hh = String(qDate.getHours()).padStart(2, '0');
+      const mm = String(qDate.getMinutes()).padStart(2, '0');
+      elements.inputFirstTime.value = `${hh}:${mm}:00`;
+    }
+
+    function initAudioContext() {
+      if (state.audioCtx) return;
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      state.audioCtx = new AudioContext();
+      state.masterGain = state.audioCtx.createGain();
+      state.masterGain.gain.setValueAtTime(state.volume, state.audioCtx.currentTime);
+      state.masterGain.connect(state.audioCtx.destination);
+      
+      if (state.audioCtx.state === 'suspended') {
+        state.audioCtx.resume();
+      }
+      
+      state.audioUnlocked = true;
+      elements.btnEnableAudio.classList.add('unlocked');
+      elements.audioStatusText.textContent = 'Audio Listo ✓';
+    }
+
+    function updateVolume(val) {
+      state.volume = parseFloat(val);
+      elements.volumeValue.textContent = `${Math.round(state.volume * 100)}%`;
+      
+      if (state.volume === 0) {
+        elements.volumeIcon.textContent = '🔇';
+      } else if (state.volume < 0.5) {
+        elements.volumeIcon.textContent = '🔉';
+      } else {
+        elements.volumeIcon.textContent = '🔊';
+      }
+      
+      if (state.masterGain && state.audioCtx) {
+        state.masterGain.gain.setValueAtTime(state.volume, state.audioCtx.currentTime);
+      }
+    }
+
+    function playPreAlertSound(level = '3m') {
+      initAudioContext();
+      if (!state.audioCtx || state.volume === 0) return;
+
+      const now = state.audioCtx.currentTime;
+      let freq1 = 880;
+      let freq2 = 1046;
+      let duration = 0.12;
+
+      if (level === '1m') {
+        freq1 = 1046;
+        freq2 = 1318;
+      } else if (level === '30s') {
+        freq1 = 1318;
+        freq2 = 1567;
+        duration = 0.1;
+      }
+
+      const osc1 = state.audioCtx.createOscillator();
+      const gain1 = state.audioCtx.createGain();
+      osc1.type = 'sine';
+      osc1.frequency.setValueAtTime(freq1, now);
+      gain1.gain.setValueAtTime(0.3, now);
+      gain1.gain.exponentialRampToValueAtTime(0.001, now + duration);
+      osc1.connect(gain1);
+      gain1.connect(state.masterGain);
+      osc1.start(now);
+      osc1.stop(now + duration);
+
+      const osc2 = state.audioCtx.createOscillator();
+      const gain2 = state.audioCtx.createGain();
+      osc2.type = 'sine';
+      osc2.frequency.setValueAtTime(freq2, now + 0.14);
+      gain2.gain.setValueAtTime(0.4, now + 0.14);
+      gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.14 + duration);
+      osc2.connect(gain2);
+      gain2.connect(state.masterGain);
+      osc2.start(now + 0.14);
+      osc2.stop(now + 0.14 + duration);
+    }
+
+    function playFinalAlarmSound() {
+      initAudioContext();
+      if (!state.audioCtx || state.volume === 0) return;
+
+      const now = state.audioCtx.currentTime;
+      const notes = [523.25, 659.25, 783.99, 1046.50]; 
+      
+      notes.forEach((freq, idx) => {
+        const osc = state.audioCtx.createOscillator();
+        const gain = state.audioCtx.createGain();
+        const startTime = now + (idx * 0.12);
+        const noteDuration = 0.6;
+        
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, startTime);
+        gain.gain.setValueAtTime(0.4, startTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, startTime + noteDuration);
+        
+        osc.connect(gain);
+        gain.connect(state.masterGain);
+        osc.start(startTime);
+        osc.stop(startTime + noteDuration);
+      });
+      
+      setTimeout(() => {
+        if (!state.audioCtx) return;
+        const now2 = state.audioCtx.currentTime;
+        const oscFinal = state.audioCtx.createOscillator();
+        const gainFinal = state.audioCtx.createGain();
+        
+        oscFinal.type = 'sine';
+        oscFinal.frequency.setValueAtTime(1046.50, now2);
+        gainFinal.gain.setValueAtTime(0.5, now2);
+        gainFinal.gain.exponentialRampToValueAtTime(0.001, now2 + 0.9);
+        
+        oscFinal.connect(gainFinal);
+        gainFinal.connect(state.masterGain);
+        oscFinal.start(now2);
+        oscFinal.stop(now2 + 0.9);
+      }, 500);
+    }
+
+    function getNextQuarterTimestamp(fromDate = new Date()) {
+      const minutes = fromDate.getMinutes();
+      const nextQMin = Math.ceil((minutes + 0.01) / 15) * 15;
+      const target = new Date(fromDate);
+      target.setSeconds(0);
+      target.setMilliseconds(0);
+      
+      if (nextQMin === 60) {
+        target.setHours(target.getHours() + 1);
+        target.setMinutes(0);
+      } else {
+        target.setMinutes(nextQMin);
+      }
+      return target.getTime();
+    }
+
+    function startTimer() {
+      initAudioContext();
+      state.intervalMinutes = parseInt(elements.selectInterval.value, 10);
+      const totalMs = state.intervalMinutes * 60 * 1000;
+      const nowMs = Date.now();
+      
+      if (state.isPaused && state.pausedRemainingMs !== null) {
+        state.targetTimestamp = nowMs + state.pausedRemainingMs;
+        state.startTimestamp = state.targetTimestamp - totalMs;
+        state.isPaused = false;
+      } else {
+        state.alertsFired = { '3m': false, '1m': false, '30s': false };
+        
+        if (state.startMode === 'quarter') {
+          state.targetTimestamp = getNextQuarterTimestamp(new Date(nowMs));
+          state.startTimestamp = state.targetTimestamp - totalMs;
+        } else if (state.startMode === 'custom') {
+          const timeVal = elements.inputFirstTime.value;
+          if (!timeVal) {
+            alert('Por favor, introduce una hora válida.');
+            return;
+          }
+          const [hh, mm, ss = 0] = timeVal.split(':').map(Number);
+          const target = new Date();
+          target.setHours(hh, mm, ss, 0);
+          if (target.getTime() <= nowMs) {
+            target.setDate(target.getDate() + 1);
+          }
+          state.targetTimestamp = target.getTime();
+          state.startTimestamp = state.targetTimestamp - totalMs;
+        } else {
+          state.startTimestamp = nowMs;
+          state.targetTimestamp = nowMs + totalMs;
+        }
+      }
+      
+      state.isRunning = true;
+      elements.btnStart.disabled = true;
+      elements.btnPause.disabled = false;
+      elements.btnReset.disabled = false;
+      
+      updateTargetClockDisplay();
+      runTimerLoop();
+    }
+
+    function runTimerLoop() {
+      if (!state.isRunning || state.isPaused) return;
+      
+      const now = Date.now();
+      let totalDurationMs = state.targetTimestamp - state.startTimestamp;
+      let remainingMs = state.targetTimestamp - now;
+      
+      if (state.simMode) {
+        const elapsedRealMs = now - state.startTimestamp;
+        const elapsedSimMs = elapsedRealMs * state.simTimeMultiplier;
+        remainingMs = totalDurationMs - elapsedSimMs;
+      }
+      
+      const totalSec = totalDurationMs / 1000;
+      const remainingSec = Math.max(0, Math.ceil(remainingMs / 1000));
+      
+      updateRoscoDisplay(remainingSec, totalSec);
+      checkAlertThresholds(remainingSec);
+      
+      if (remainingSec <= 0) {
+        completeCycle();
+        return;
+      }
+      
+      state.animFrameId = requestAnimationFrame(runTimerLoop);
+    }
+
+    function updateRoscoDisplay(remainingSec, totalSec) {
+      const mins = Math.floor(remainingSec / 60);
+      const secs = remainingSec % 60;
+      const timeStr = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      
+      elements.countdownDisplay.textContent = timeStr;
+      
+      const progressRatio = Math.max(0, Math.min(1, remainingSec / totalSec));
+      const dashoffset = CIRCUMFERENCE * (1 - progressRatio);
+      elements.roscoProgress.style.strokeDashoffset = dashoffset;
+    }
+
+    function checkAlertThresholds(remainingSec) {
+      let phaseClass = 'phase-normal';
+      let pillClass = 'status-running';
+      let pillText = 'En curso';
+      
+      elements.milestone3m.className = 'milestone-chip';
+      elements.milestone1m.className = 'milestone-chip';
+      elements.milestone30s.className = 'milestone-chip';
+
+      if (remainingSec <= 30) {
+        phaseClass = 'phase-30s';
+        pillClass = 'status-alert-30s';
+        pillText = '¡Preaviso 30s!';
+        elements.milestone30s.classList.add('active-30s');
+        
+        if (!state.alertsFired['30s'] && elements.chkAlert30s.checked) {
+          state.alertsFired['30s'] = true;
+          playPreAlertSound('30s');
+        }
+      } else if (remainingSec <= 60) {
+        phaseClass = 'phase-1m';
+        pillClass = 'status-alert-1m';
+        pillText = 'Preaviso 1 min';
+        elements.milestone1m.classList.add('active-1m');
+        
+        if (!state.alertsFired['1m'] && elements.chkAlert1m.checked) {
+          state.alertsFired['1m'] = true;
+          playPreAlertSound('1m');
+        }
+      } else if (remainingSec <= 180) {
+        phaseClass = 'phase-3m';
+        pillClass = 'status-alert-3m';
+        pillText = 'Preaviso 3 min';
+        elements.milestone3m.classList.add('active-3m');
+        
+        if (!state.alertsFired['3m'] && elements.chkAlert3m.checked) {
+          state.alertsFired['3m'] = true;
+          playPreAlertSound('3m');
+        }
+      }
+      
+      elements.roscoProgress.setAttribute('class', `rosco-progress ${phaseClass}`);
+      elements.statusPill.className = `status-pill ${pillClass}`;
+      elements.statusText.textContent = pillText;
+    }
+
+    function updateTargetClockDisplay() {
+      if (!state.targetTimestamp) {
+        elements.targetClockValue.textContent = '--:--:--';
+        return;
+      }
+      const d = new Date(state.targetTimestamp);
+      elements.targetClockValue.textContent = d.toLocaleTimeString('es-ES', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+    }
+
+    function completeCycle() {
+      playFinalAlarmSound();
+      
+      elements.statusPill.className = 'status-pill status-completed';
+      elements.statusText.textContent = '¡Toma Completada!';
+      
+      recordTakeLog(new Date(state.targetTimestamp), 'Automática');
+      state.alertsFired = { '3m': false, '1m': false, '30s': false };
+      
+      const totalMs = state.intervalMinutes * 60 * 1000;
+      state.startTimestamp = Date.now();
+      state.targetTimestamp = state.startTimestamp + totalMs;
+      
+      updateTargetClockDisplay();
+      
+      setTimeout(() => {
+        if (state.isRunning && !state.isPaused) {
+          runTimerLoop();
+        }
+      }, 1000);
+    }
+
+    function pauseTimer() {
+      if (!state.isRunning || state.isPaused) return;
+      state.isPaused = true;
+      state.pausedRemainingMs = state.targetTimestamp - Date.now();
+      
+      if (state.animFrameId) {
+        cancelAnimationFrame(state.animFrameId);
+      }
+      
+      elements.btnPause.innerHTML = '<span class="btn-icon">▶</span> Reanudar';
+      elements.statusPill.className = 'status-pill status-ready';
+      elements.statusText.textContent = 'Pausado';
+    }
+
+    function togglePause() {
+      if (!state.isPaused) {
+        pauseTimer();
+      } else {
+        elements.btnPause.innerHTML = '<span class="btn-icon">⏸</span> Pausar';
+        startTimer();
+      }
+    }
+
+    function resetTimer() {
+      state.isRunning = false;
+      state.isPaused = false;
+      state.targetTimestamp = null;
+      state.startTimestamp = null;
+      state.pausedRemainingMs = null;
+      state.alertsFired = { '3m': false, '1m': false, '30s': false };
+      
+      if (state.animFrameId) {
+        cancelAnimationFrame(state.animFrameId);
+      }
+      
+      elements.btnStart.disabled = false;
+      elements.btnPause.disabled = true;
+      elements.btnPause.innerHTML = '<span class="btn-icon">⏸</span> Pausar';
+      elements.btnReset.disabled = true;
+      
+      elements.statusPill.className = 'status-pill status-ready';
+      elements.statusText.textContent = 'Listo para iniciar';
+      
+      elements.milestone3m.className = 'milestone-chip';
+      elements.milestone1m.className = 'milestone-chip';
+      elements.milestone30s.className = 'milestone-chip';
+      
+      elements.targetClockValue.textContent = '--:--:--';
+      const totalSec = parseInt(elements.selectInterval.value, 10) * 60;
+      updateRoscoDisplay(totalSec, totalSec);
+      elements.roscoProgress.setAttribute('class', 'rosco-progress phase-normal');
+    }
+
+    function recordTakeLog(dateObj, type = 'Automática') {
+      state.takeCounter++;
+      const timeStr = dateObj.toLocaleTimeString('es-ES', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+      
+      const entry = {
+        id: state.takeCounter,
+        targetTime: timeStr,
+        actualTime: new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+        type: type
+      };
+      
+      state.takesHistory.unshift(entry);
+      renderLogTable();
+    }
+
+    function renderLogTable() {
+      elements.takeCountBadge.textContent = `${state.takesHistory.length} tomas registradas`;
+      
+      if (state.takesHistory.length === 0) {
+        elements.logTbody.innerHTML = `
+          <tr id="empty-log-row">
+            <td colspan="4" class="text-center empty-msg">No hay tomas registradas aún. Al completarse cada ciclo de 15 min quedarán aquí registradas.</td>
+          </tr>`;
+        return;
+      }
+      
+      elements.logTbody.innerHTML = state.takesHistory.map(item => `
+        <tr>
+          <td><strong>#${item.id}</strong></td>
+          <td><span class="font-mono">${item.targetTime}</span></td>
+          <td><span class="font-mono text-emerald">${item.actualTime}</span> <span class="badge-success">✓ Completada</span></td>
+          <td><span class="badge-type">${item.type}</span></td>
+        </tr>
+      `).join('');
+    }
+
+    function toggleExpandedMode() {
+      document.body.classList.toggle('mode-expanded');
+    }
+
+    function initEventListeners() {
+      elements.btnEnableAudio.addEventListener('click', initAudioContext);
+      
+      // Expanded mode toggle
+      elements.btnToggleExpand.addEventListener('click', toggleExpandedMode);
+      elements.btnExitExpanded.addEventListener('click', toggleExpandedMode);
+      
+      const radioModes = document.querySelectorAll('input[name="startMode"]');
+      radioModes.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          state.startMode = e.target.value;
+          if (state.startMode === 'custom') {
+            elements.customTimeContainer.classList.remove('hidden');
+          } else {
+            elements.customTimeContainer.classList.add('hidden');
+          }
+        });
+      });
+      
+      elements.configForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        resetTimer();
+        startTimer();
+      });
+      
+      elements.btnPause.addEventListener('click', togglePause);
+      elements.btnReset.addEventListener('click', resetTimer);
+      
+      elements.volumeSlider.addEventListener('input', (e) => updateVolume(e.target.value));
+      elements.btnTestPrealert.addEventListener('click', () => playPreAlertSound('3m'));
+      elements.btnTestFinal.addEventListener('click', playFinalAlarmSound);
+      
+      elements.chkSimMode.addEventListener('change', (e) => {
+        state.simMode = e.target.checked;
+      });
+      
+      elements.btnManualTake.addEventListener('click', () => {
+        recordTakeLog(new Date(), 'Manual');
+      });
+      
+      elements.btnClearLog.addEventListener('click', () => {
+        if (confirm('¿Deseas limpiar el historial de tomas?')) {
+          state.takesHistory = [];
+          state.takeCounter = 0;
+          renderLogTable();
+        }
+      });
+    }
+  </script>
+</body>
+</html>
