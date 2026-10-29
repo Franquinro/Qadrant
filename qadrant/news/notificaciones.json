@@ -1,7 +1,8 @@
 {
   "id": 2602,
-  "titulo": "Actualización 2.0.26.4",
+  "versionCode": 65,
+  "version": "2.0.26.4",
+  "titulo": "Nueva versión 2.0.26.4",
   "caduca": 1822494842,
   "texto": "https://qadrant.netlify.app/news/novedades.html"
 }
-
