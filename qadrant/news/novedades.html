@@ -139,11 +139,14 @@
                 <div>
                     <h6 class="fw-bold mb-1 text-dark">¡Nueva actualización 2.0.26.5 disponible!</h6>
                     <p class="mb-2 small text-secondary">
-                        Aún tienes instalada una versión anterior. Actualiza Qadrant en Google Play para disfrutar de las novedades que se detallan a continuación.
+                        Aún tienes instalada una versión anterior. Abre <strong>Google Play</strong> y actualiza <strong>Qadrant</strong> para disfrutar de las novedades que se detallan a continuación.
                     </p>
-                    <a href="https://play.google.com/store/apps/details?id=qadrandroid.fq.org" class="btn btn-sm btn-warning fw-semibold text-dark rounded-pill px-3">
+                    <a id="btnPlayLink" href="market://details?id=qadrandroid.fq.org" class="btn btn-sm btn-warning fw-semibold text-dark rounded-pill px-3" style="display: none;">
                         <i class="bi bi-google-play me-1"></i> Actualizar en Google Play
                     </a>
+                    <span id="badgePlayInfo" class="d-inline-block bg-warning text-dark fw-semibold rounded-pill px-3 py-1 small">
+                        <i class="bi bi-google-play me-1"></i> Disponible en Google Play
+                    </span>
                 </div>
             </div>
         </div>
@@ -397,11 +400,22 @@
 
             var banner = document.getElementById("updateBanner");
             var badge = document.getElementById("badgeLatest");
+            var btnPlayLink = document.getElementById("btnPlayLink");
+            var badgePlayInfo = document.getElementById("badgePlayInfo");
+
             if (!isUpdated) {
                 if (banner) banner.style.display = "block";
                 if (badge) {
                     badge.textContent = "Disponible";
                     badge.className = "badge bg-warning text-dark me-2";
+                }
+                // Solo mostrar enlace clicable a partir de vc >= 66 (donde el WebView abre Google Play externamente)
+                if (vc >= 66) {
+                    if (btnPlayLink) btnPlayLink.style.display = "inline-block";
+                    if (badgePlayInfo) badgePlayInfo.style.display = "none";
+                } else {
+                    if (btnPlayLink) btnPlayLink.style.display = "none";
+                    if (badgePlayInfo) badgePlayInfo.style.display = "inline-block";
                 }
             } else {
                 if (banner) banner.style.display = "none";
